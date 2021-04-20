@@ -1,0 +1,123 @@
+{
+  "Estoque": [
+    {
+      "Veiculo_CodigoDealer": "23534",
+      "Veiculo_Ano_Modelo": "2017",
+      "Veiculo_Ano_Fabricacao": "2017",
+      "Veiculo_Chassi": "M160252",
+      "Veiculo_ModeloCod": "4989",
+      "Veiculo_ModeloDesc": "BFABDB7 - FORD FIESTA SD 1.6 SEL AT",
+      "Vaiculo_FamiliaCod": "923",
+      "Veiculo_Familia_Desc": "BFA - NEW FIESTA SEDAN",
+      "Veiculo_Marca": "FORD",
+      "Veiculo_KM": "1",
+      "Veiculo_Combustivel": "FLEX",
+      "Veiculo_Cor": "BRANCO ARTICO",
+      "Veiculo_EmpresaCodigo": "1",
+      "Veiculo_EmpresaNome": "VIAFOR - MATRIZ",
+      "Veiculo_EstoqueTipo": "VN",
+      "Veiculo_EstoqueDescricao": "VD - VEICULO NOVO EM DEMONSTRACAO",
+      "Veiculo_DiasEstoque": "820",
+      "Veiculo_EmTransito": "0",
+      "Veiculo_Preco": "73060.00"
+    },
+    {
+      "Veiculo_CodigoDealer": "24171",
+      "Veiculo_Ano_Modelo": "2018",
+      "Veiculo_Ano_Fabricacao": "2018",
+      "Veiculo_Chassi": "B605568",
+      "Veiculo_ModeloCod": "5835",
+      "Veiculo_ModeloDesc": "FADRXE8 - FORD FIESTA 10 SEL GTDI A",
+      "Vaiculo_FamiliaCod": "946",
+      "Veiculo_Familia_Desc": "FAD - NEW FIESTA HATCH",
+      "Veiculo_Marca": "FORD",
+      "Veiculo_KM": "1",
+      "Veiculo_Combustivel": "FLEX",
+      "Veiculo_Cor": "PRATA DUBLIN",
+      "Veiculo_EmpresaCodigo": "2",
+      "Veiculo_EmpresaNome": "VIAFOR - VITORIA",
+      "Veiculo_EstoqueTipo": "VN",
+      "Veiculo_EstoqueDescricao": "VN - VEICULOS NOVOS",
+      "Veiculo_DiasEstoque": "768",
+      "Veiculo_EmTransito": "0",
+      "Veiculo_Preco": "71140.00",
+      "Veiculo_Opcionais": {
+        "Opcional": {
+          "Opcional_Codigo": "210",
+          "Opcional_Descricao": "PINTURA METALICA",
+          "Opcional_Valor": "1350.00"
+        }
+      }
+    },
+    {
+      "Veiculo_CodigoDealer": "24841",
+      "Veiculo_Ano_Modelo": "2018",
+      "Veiculo_Ano_Fabricacao": "2018",
+      "Veiculo_Chassi": "B607903",
+      "Veiculo_ModeloCod": "5797",
+      "Veiculo_ModeloDesc": "FADRCA8 - FORD FIESTA 16 SE",
+      "Vaiculo_FamiliaCod": "946",
+      "Veiculo_Familia_Desc": "FAD - NEW FIESTA HATCH",
+      "Veiculo_Marca": "FORD",
+      "Veiculo_KM": "1",
+      "Veiculo_Combustivel": "FLEX",
+      "Veiculo_Cor": "PRETO BRISTOL",
+      "Veiculo_EmpresaCodigo": "2",
+      "Veiculo_EmpresaNome": "VIAFOR - VITORIA",
+      "Veiculo_EstoqueTipo": "VN",
+      "Veiculo_EstoqueDescricao": "VN - VEICULOS NOVOS",
+      "Veiculo_DiasEstoque": "725",
+      "Veiculo_EmTransito": "0",
+      "Veiculo_Preco": "58040.00",
+      "Veiculo_Opcionais": {
+        "Opcional": {
+          "Opcional_Codigo": "210",
+          "Opcional_Descricao": "PINTURA METALICA",
+          "Opcional_Valor": "1350.00"
+        }
+      }
+    },
+    {
+      "Veiculo_CodigoDealer": "25480",
+      "Veiculo_Ano_Modelo": "2017",
+      "Veiculo_Ano_Fabricacao": "2017",
+      "Veiculo_Chassi": "M166711",
+      "Veiculo_ModeloCod": "4989",
+      "Veiculo_ModeloDesc": "BFABDB7 - FORD FIESTA SD 1.6 SEL AT",
+      "Vaiculo_FamiliaCod": "923",
+      "Veiculo_Familia_Desc": "BFA - NEW FIESTA SEDAN",
+      "Veiculo_Marca": "FORD",
+      "Veiculo_KM": "1",
+      "Veiculo_Combustivel": "FLEX",
+      "Veiculo_Cor": "BRANCO ARTICO",
+      "Veiculo_EmpresaCodigo": "2",
+      "Veiculo_EmpresaNome": "VIAFOR - VITORIA",
+      "Veiculo_EstoqueTipo": "VN",
+      "Veiculo_EstoqueDescricao": "VN - VEICULOS NOVOS",
+      "Veiculo_DiasEstoque": "687",
+      "Veiculo_EmTransito": "0",
+      "Veiculo_Preco": "73060.00"
+    },
+    {
+      "Veiculo_CodigoDealer": "25567",
+      "Veiculo_Ano_Modelo": "2018",
+      "Veiculo_Ano_Fabricacao": "2018",
+      "Veiculo_Chassi": "B615924",
+      "Veiculo_ModeloCod": "5809",
+      "Veiculo_ModeloDesc": "FADRCF8 - FORD FIESTA 16SE AT",
+      "Vaiculo_FamiliaCod": "946",
+      "Veiculo_Familia_Desc": "FAD - NEW FIESTA HATCH",
+      "Veiculo_Marca": "FORD",
+      "Veiculo_KM": "1",
+      "Veiculo_Combustivel": "FLEX",
+      "Veiculo_Cor": "BRANCO ARTICO",
+      "Veiculo_EmpresaCodigo": "1",
+      "Veiculo_EmpresaNome": "VIAFOR - MATRIZ",
+      "Veiculo_EstoqueTipo": "VN",
+      "Veiculo_EstoqueDescricao": "VD - VEICULO NOVO EM DEMONSTRACAO",
+      "Veiculo_DiasEstoque": "671",
+      "Veiculo_EmTransito": "0",
+      "Veiculo_Preco": "62390.00"
+    }
+  ]
+}
