@@ -12,6 +12,8 @@ const images = [
     'https://images.pexels.com/photos/1058278/pexels-photo-1058278.jpeg?cs=srgb&dl=pexels-thisisengineering-1058278.jpg&fm=jpg',
     'https://images.pexels.com/photos/2326290/pexels-photo-2326290.jpeg?cs=srgb&dl=pexels-thisisengineering-2326290.jpg&fm=jpg',
 ]
+
+//teste 
 */
 
 export default class Slider extends React.Component{
