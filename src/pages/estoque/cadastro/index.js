@@ -45,9 +45,9 @@ const EstoqueCadastro = props => {
     setModalVisible(!isModalVisible);
   };
 
-  state = {
+  state = { 
     modalVisible: false,
-    modalImage: Veiculo_Imagens[0].Imagem,
+    //modalImage: Veiculo_Imagens[0].Imagem,
     images: [
       Veiculo_Imagens
     ]
@@ -92,10 +92,15 @@ const EstoqueCadastro = props => {
       textAlign: 'center',
       //borderColor: '#FF5722',
     },
-    viewBaseTexto2: {
-      flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
+    cardPrecoItem: {
+        //borderWidth: 1,
+    },
+    cardPreco: {
+      flex: 1, 
+      //backgroundColor: '#ccc',
+      borderWidth: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
     },
   });
 
@@ -164,13 +169,27 @@ const EstoqueCadastro = props => {
       {...props}
       exibirHeader={true}
       exibirFiltro={false}>
-      
-      <View style={{...styles.viewBaseTexto2}}>
-        <Text style={{...styles.viewBaseTexto, fontSize: fonts.tipo5, fontWeight: 'bold'}}>
+     
+     
+      <View style={{...styles.cardPreco}}>
+        <Text style={{...styles.cardPrecoItem, fontSize: fonts.tipo5, fontWeight: 'bold'}}>
           {Veiculo.Veiculo_Preco ? 'R$ ' + Veiculo.Veiculo_Preco : <></>}
         </Text>
       </View>
-
+      
+ {/*
+      <View style={styles.viewBase}>
+        <View>
+          <Text style={styles.label}>Preco:</Text>
+        </View>
+        <View style={{...styles.viewTexto}}>
+          <Text style={{...styles.textoDados, fontSize: fonts.tipo4}}>
+          {Veiculo.Veiculo_Preco ? 'R$ ' + Veiculo.Veiculo_Preco : <></>}
+          </Text>
+        </View>
+      </View>
+*/
+}
       {Veiculo_Imagens.length > 0 ?  (   
           <View >
             <Slider images={Veiculo_Imagens}/>

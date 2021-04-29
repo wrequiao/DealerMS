@@ -324,9 +324,9 @@ const EstoqueListagem = props => {
           visible={MostrarFiltro}
           contentContainerStyle={{
             ...stylesGeral.Modal,
-            //overflow: 'hidden',
-            //top: 50,
-            //height: 350,
+            overflow: 'hidden',
+            //top: 0,
+            height: '110%',
           }}
           //onRequestClose={() => {}}
         >

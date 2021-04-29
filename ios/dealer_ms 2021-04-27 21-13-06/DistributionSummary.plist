@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Dealer MS.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>14D744345F7F97DDD38FF122B6ADDB1BE2E01827</string>
+				<key>dateExpires</key>
+				<string>27/04/22</string>
+				<key>type</key>
+				<string>Apple Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>338BZH5Y23.br.com.dealerms.dealerms</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>338BZH5Y23</string>
+				<key>get-task-allow</key>
+				<false/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>338BZH5Y23.br.com.dealerms.dealerms</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>Dealer MS.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>76a3a1fb-41d8-4ebc-9125-85904dd8cffd</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: br.com.dealerms.dealerms</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>338BZH5Y23</string>
+				<key>name</key>
+				<string>Eduardo Pechmann</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
