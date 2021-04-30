@@ -93,12 +93,12 @@ const EstoqueCadastro = props => {
       //borderColor: '#FF5722',
     },
     cardPrecoItem: {
-        //borderWidth: 1,
+        borderWidth: 1,
     },
     cardPreco: {
       flex: 1, 
       //backgroundColor: '#ccc',
-      borderWidth: 1,
+      //borderWidth: 1,
       flexDirection: 'row',
       justifyContent: 'center',
     },
