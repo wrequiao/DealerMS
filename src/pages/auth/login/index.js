@@ -54,8 +54,8 @@ const LoginScreen = ({navigation}) => {
       import('~/config/ReactotronConfig');
       //email.value = 'FERNANDO.DESENVAPP';
       //password.value = 'Dealernet@133';
-      email.value = 'volney';
-      password.value = 'Dealer@2020';
+      //email.value = 'volney';
+      //password.value = 'Dealer@2020';
     }
 
     const usuarioError = usuarioValidator(email.value);

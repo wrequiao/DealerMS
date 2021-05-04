@@ -59,10 +59,10 @@ export default class Slider extends React.Component{
 }
 
 const style = StyleSheet.create({
-    container: {marginTop: 10, width, height, marginBottom: 30},
+    container: {marginTop: 10, width, height, marginBottom: 30, alignSelf: 'center'},
     scroll: {width, height},
     image: {width, height, resizeMode: 'contain'},
-    pagination: {flexDirection:'row', position: 'absolute', bottom: -15, alignSelf: 'center'},
+    pagination: {flexDirection:'row', position: 'absolute', bottom: -20, alignSelf: 'center'},
     pagingText: {fontSize: (width / 30), color: '#888', margin: 3},
     pagingActiveText: {fontSize: (width / 30), color: '#000', margin: 3},
 

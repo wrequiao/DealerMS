@@ -94,6 +94,7 @@ const EstoqueCadastro = props => {
     },
     cardPrecoItem: {
         borderWidth: 1,
+        padding: 5,
     },
     cardPreco: {
       flex: 1, 
@@ -101,6 +102,12 @@ const EstoqueCadastro = props => {
       //borderWidth: 1,
       flexDirection: 'row',
       justifyContent: 'center',
+    },
+    viewTextoModelo: {
+      //paddingHorizontal: 10,
+      borderColor: 'grey',
+      position: 'relative',
+      marginBottom: 15,
     },
   });
 
@@ -177,19 +184,6 @@ const EstoqueCadastro = props => {
         </Text>
       </View>
       
- {/*
-      <View style={styles.viewBase}>
-        <View>
-          <Text style={styles.label}>Preco:</Text>
-        </View>
-        <View style={{...styles.viewTexto}}>
-          <Text style={{...styles.textoDados, fontSize: fonts.tipo4}}>
-          {Veiculo.Veiculo_Preco ? 'R$ ' + Veiculo.Veiculo_Preco : <></>}
-          </Text>
-        </View>
-      </View>
-*/
-}
       {Veiculo_Imagens.length > 0 ?  (   
           <View >
             <Slider images={Veiculo_Imagens}/>
@@ -200,10 +194,7 @@ const EstoqueCadastro = props => {
      
 
       <View style={styles.viewBase}>
-        <View>
-          <Text style={styles.label}>Modelo:</Text>
-        </View>
-        <View style={{...styles.viewTexto}}>
+        <View style={{...styles.viewTextoModelo}}>
           <Text style={{...styles.textoDados, fontSize: fonts.tipo4}}>
             {Veiculo.Veiculo_Modelo_Desc}
           </Text>
