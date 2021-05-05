@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, ScrollView, Dimensions, Text, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {View, Image, ScrollView, Dimensions, Text, StyleSheet, TouchableHighlight} from 'react-native';
 
 const {width} = Dimensions.get("window");
 const height = width * 0.6
@@ -26,6 +26,10 @@ export default class Slider extends React.Component{
         }
     }
 
+    imageClicked(val){
+       this.props.onImagePress(val)     
+    }
+
     render(){
         return(
             <View style={style.container}>
@@ -38,11 +42,12 @@ export default class Slider extends React.Component{
                 >
                 { 
                     this.props.images.map((image, index) => 
-                            
-                            <Image
-                            key={index}
-                            source={{uri: 'data:image/png;base64,' + image.Imagem}}
-                            style={style.image}/>                   
+                            <TouchableHighlight onPress={(e) => {e.stopPropagation(); this.imageClicked(image.Imagem)}}>
+                                <Image
+                                key={index}
+                                source={{uri: 'data:image/png;base64,' + image.Imagem}}
+                                style={style.image}/> 
+                            </TouchableHighlight>                  
                         )
                 }
                 </ScrollView>
@@ -62,7 +67,7 @@ const style = StyleSheet.create({
     container: {marginTop: 10, width, height, marginBottom: 30, alignSelf: 'center'},
     scroll: {width, height},
     image: {width, height, resizeMode: 'contain'},
-    pagination: {flexDirection:'row', position: 'absolute', bottom: -20, alignSelf: 'center'},
+    pagination: {flexDirection:'row', position: 'absolute', bottom: -25, alignSelf: 'center'},
     pagingText: {fontSize: (width / 30), color: '#888', margin: 3},
     pagingActiveText: {fontSize: (width / 30), color: '#000', margin: 3},
 

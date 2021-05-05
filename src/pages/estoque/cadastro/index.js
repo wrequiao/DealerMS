@@ -1,5 +1,5 @@
 import React, {useState, useEffect, memo} from 'react';
-import {View, Text, StyleSheet, Image, Keyboard} from 'react-native';
+import {Modal, View, Text, StyleSheet, Image, Keyboard} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Container from '~/componentes/tela/Container';
@@ -17,6 +17,7 @@ import Button from '~/componentes/tela/Button';
 import Carousel from '~/componentes/carousel/Carousel'
 import Slider from '~/componentes/carousel/Slider'
 import ImageElement from '~/componentes/carousel/ImageElement'
+import { TouchableHighlight } from 'react-native';
 
 const EstoqueCadastro = props => {
   const TempoRefresh = Global.TEMPO_REFRESH;
@@ -39,19 +40,8 @@ const EstoqueCadastro = props => {
     }
   }, [refreshing]);
 /////////
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-
-  state = { 
-    modalVisible: false,
-    //modalImage: Veiculo_Imagens[0].Imagem,
-    images: [
-      Veiculo_Imagens
-    ]
-  }
+const [modalVisible, setModalVisible] = useState(false);
+const [modalImage, setModalImage] = useState(null);
 ///////////
 
   const styles = StyleSheet.create({
@@ -109,7 +99,31 @@ const EstoqueCadastro = props => {
       position: 'relative',
       marginBottom: 15,
     },
+
+    ModalView: {
+      //backgroundColor: '#000',
+      //paddingTop: 30,
+      flex: 1,
+      justifyContent: 'center',
+      //alignItems: 'center',
+    },
+    ModalImage: {
+      width: '100%',
+      height: '100%',
+    },
+
   });
+
+function toggle(){
+  console.log('toggle')
+  setModalVisible(!modalVisible);
+};
+
+function ImagePress(val){
+  console.log('imagepress')
+  setModalImage(val);
+  toggle();
+}
 
   async function carregarEstoque() {
     if (loading) return;
@@ -140,8 +154,6 @@ const EstoqueCadastro = props => {
       }
 
       if (Retorno.Veiculo_Imagens){
-        console.log('contador imagens detalhes')
-        console.log(Retorno.Veiculo_Imagens.length)
         setVeiculo_Imagens(Retorno.Veiculo_Imagens);
       } else {
         EstoqueAux = Retorno;
@@ -150,12 +162,7 @@ const EstoqueCadastro = props => {
       if (EstoqueAux) setVeiculo(EstoqueAux[0]);
     }
 
-
     setLoading(false);
-  }
-
-  async function _onImagePressed(){
-    console.log('clicou...')
   }
 
   async function _onReservarPressed() {
@@ -176,8 +183,7 @@ const EstoqueCadastro = props => {
       {...props}
       exibirHeader={true}
       exibirFiltro={false}>
-     
-     
+       
       <View style={{...styles.cardPreco}}>
         <Text style={{...styles.cardPrecoItem, fontSize: fonts.tipo5, fontWeight: 'bold'}}>
           {Veiculo.Veiculo_Preco ? 'R$ ' + Veiculo.Veiculo_Preco : <></>}
@@ -186,12 +192,19 @@ const EstoqueCadastro = props => {
       
       {Veiculo_Imagens.length > 0 ?  (   
           <View >
-            <Slider images={Veiculo_Imagens}/>
+            <Slider images={Veiculo_Imagens} onImagePress={ImagePress}/>
           </View>
           ) : 
           (<></>)
       }
-     
+
+     <Modal animationType="slide" transparent={false} visible={modalVisible}>
+       <View style={styles.ModalView}> 
+        <TouchableHighlight onPress={ toggle } style={styles.ModalView}>       
+          <Image resizeMode='contain' source={{uri: 'data:image/png;base64,' + modalImage}} style={styles.ModalImage}/> 
+        </TouchableHighlight>
+       </View>
+     </Modal>
 
       <View style={styles.viewBase}>
         <View style={{...styles.viewTextoModelo}}>
@@ -345,11 +358,5 @@ const EstoqueCadastro = props => {
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  Padrao: {
-    flex: 1,
-  },
-});
 
 export default memo(EstoqueCadastro);
