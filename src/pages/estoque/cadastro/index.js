@@ -200,7 +200,7 @@ function ImagePress(val){
 
      <Modal animationType="slide" transparent={false} visible={modalVisible}>
        <View style={styles.ModalView}> 
-        <TouchableHighlight onPress={ toggle } style={styles.ModalView}>       
+        <TouchableHighlight onPress={ toggle } style={styles.ModalView}  underlayColor={'none'}>       
           <Image resizeMode='contain' source={{uri: 'data:image/png;base64,' + modalImage}} style={styles.ModalImage}/> 
         </TouchableHighlight>
        </View>

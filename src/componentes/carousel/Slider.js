@@ -42,7 +42,7 @@ export default class Slider extends React.Component{
                 >
                 { 
                     this.props.images.map((image, index) => 
-                            <TouchableHighlight onPress={(e) => {e.stopPropagation(); this.imageClicked(image.Imagem)}}>
+                            <TouchableHighlight underlayColor={'none'} onPress={(e) => {e.stopPropagation(); this.imageClicked(image.Imagem)}}>
                                 <Image
                                 key={index}
                                 source={{uri: 'data:image/png;base64,' + image.Imagem}}
