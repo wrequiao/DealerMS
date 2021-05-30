@@ -9,6 +9,7 @@ import {
   getCadastroDeReservaXMLSOAP,
   getDadosDashboardXMLSOAP,
   getConsultaClienteXMLSOAP,
+  getCadastroDePropostaXMLSOAP
 } from './SoapXMLs';
 const XMLParser = require('react-xml-parser');
 
@@ -329,6 +330,46 @@ export const cadastrarReservaVeiculo = async (
     //console.log('Retorno Erro: '+JSON.stringify(MensagemErro.value));
     return {Ok: false, Erro: MensagemErro.value};
   }
+};
+
+
+export const cadastrarPropostaVeiculo = async (
+  Veiculo_Codigo,
+  Atendimento,
+  PropostaObs, 
+  Veiculo_Preco
+) => {
+
+  let DadosUsuario = await getUsuario();
+  let Data = getCadastroDePropostaXMLSOAP()
+    .replace(/{USUARIO}/g, DadosUsuario.Login)
+    .replace(/{SENHA}/g, DadosUsuario.Senha)
+    .replace(/{EMPRESA_CODIGO}/g, DadosUsuario.EmpresaSelecionada)
+    .replace('{VEICULO_CODIGO}', Veiculo_Codigo)
+    .replace('{ATENDIMENTO_CODIGO}', Atendimento)
+    .replace('{VEICULO_OBS_PROPOSTA}', PropostaObs)
+    .replace('{VEICULO_VALOR}', Veiculo_Preco)
+    .replace('{VEICULO_VALOR}', Veiculo_Preco);
+  
+  if (MOSTRAR_DATA_ENVIO) {
+    console.log(Data);
+  }
+
+  let XMLResposta = await executarAPIServico(Data);
+  //console.log('resposta')
+  //console.log(XMLResposta);
+
+  let StatusAux = XMLResposta.getElementsByTagName('Status')[0];
+
+  if (StatusAux && StatusAux.value != 'ERRO') {
+    return {Ok: true};
+  } else {
+    let MensagemErro = XMLResposta.getElementsByTagName('Mensagem')[0];
+    //console.log('Retorno Erro: '+JSON.stringify(MensagemErro.value));
+    return {Ok: false, Erro: MensagemErro.value.replace('ERRO', 'Proposta não criada')};
+  }
+
+
 };
 
 export const getVeiculoCod = async (Chassi, Placa) => {
@@ -693,15 +734,14 @@ export const executarAPIServico = async (
     //tratamento regex
     DataResponse = DataResponse.replace(/&lt;/g, '<');
     DataResponse = DataResponse.replace(/&gt;/g, '>');
-    //DataResponse = DataResponse.replace(/&amp;lt;/g, '<').replace(/&amp;gt;/g, '>');//replace <>
     
     if (MOSTRAR_RESPONSE) console.log(DataResponse);
-
+    
     var xml = new XMLParser().parseFromString(DataResponse);
     
     return xml;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     if (!DesconsiderarErroComunicacao)
       alert('Houve um erro ao executar a conexão. Erro: ' + err);
   }

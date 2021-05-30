@@ -111,6 +111,10 @@ const [modalImage, setModalImage] = useState(null);
       width: '100%',
       height: '100%',
     },
+    BtnSecondary: {
+      width: '100%',
+      height: '100%',
+    },
 
   });
 
@@ -141,7 +145,6 @@ function ImagePress(val){
     console.log(PesquisarImagemCheck)
 
     let Retorno = await getEstoqueVeiculos(null, VeiculoCodigoAux, true, true);
-
     //console.log('\n', Retorno);
     let EstoqueAux;
 
@@ -173,6 +176,17 @@ function ImagePress(val){
       Veiculo.Veiculo_Codigo.toString(),
     );
     props.navigation.navigate('ReservaVeiculos');
+  }
+
+  async function _ontenhoInteressePressed() {
+    Keyboard.dismiss();
+
+    await AsyncStorage.setItem(
+      '@Veiculo_Codigo_Proposta',
+      Veiculo.Veiculo_Codigo.toString(),
+    );
+    
+    props.navigation.navigate('PropostaVeiculos');
   }
 
   return (
@@ -350,8 +364,16 @@ function ImagePress(val){
       ) : (
         <></>
       )}
+
       <View style={{...stylesGeral.ViewCamposCadastro, marginTop: 15}}>
-        <Button mode="contained" onPress={_onReservarPressed}>
+        <Button mode="contained" onPress={_ontenhoInteressePressed} style={{height: 70, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={{fontSize:20}}>Tenho Interesse</Text>
+        </Button>
+      </View>
+
+
+      <View style={{ marginTop: 15, marginRight: 30, marginLeft: 30}}>
+        <Button mode="contained" onPress={_onReservarPressed} >
           Reservar
         </Button>
       </View>

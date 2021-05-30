@@ -190,6 +190,44 @@ export const getCadastroDeReservaXMLSOAP = () => {
   return XML;
 };
 
+export const getCadastroDePropostaXMLSOAP = () => {
+   let Parametros = tratarParametros(`
+   <SDT_PropostaDados>
+     <Empresa_Codigo>{EMPRESA_CODIGO}</Empresa_Codigo>
+     <Usuario_Identificador>{USUARIO}</Usuario_Identificador>
+     <DadosVeiculo>
+      <Veiculo_Codigo>{VEICULO_CODIGO}</Veiculo_Codigo>
+     </DadosVeiculo>
+     <Atendimento_Codigo>{ATENDIMENTO_CODIGO}</Atendimento_Codigo>
+     <Proposta_Valor>{VEICULO_VALOR}</Proposta_Valor>
+     <Proposta_VeiculoValor>{VEICULO_VALOR}</Proposta_VeiculoValor>
+     <Envia_Email>1</Envia_Email>
+     <SMS>1</SMS>
+     <Proposta_Observacao>{VEICULO_OBS_PROPOSTA}</Proposta_Observacao>
+   </SDT_PropostaDados>`);
+ 
+
+   let XML =
+     `
+   <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">
+      <soap:Header />
+      <soap:Body>
+         <tem:IncluirProposta>
+            <tem:Acesso>
+               <tem:Usuario>{USUARIO}</tem:Usuario>
+               <tem:Senha>{SENHA}</tem:Senha>
+            </tem:Acesso>
+            <tem:XMLParametros>` +
+     Parametros +
+     `</tem:XMLParametros>
+         </tem:IncluirProposta>
+      </soap:Body>
+   </soap:Envelope>`;
+ 
+   return XML;
+ };
+
+ 
 export const getDadosDashboardXMLSOAP = () => {
   let Parametros = tratarParametros(`
      <Parametros>
