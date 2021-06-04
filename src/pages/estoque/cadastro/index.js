@@ -1,5 +1,5 @@
 import React, {useState, useEffect, memo} from 'react';
-import {Modal, View, Text, StyleSheet, Image, Keyboard} from 'react-native';
+import {Modal, View, Text, StyleSheet, Image, Keyboard, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Container from '~/componentes/tela/Container';
@@ -365,12 +365,11 @@ function ImagePress(val){
         <></>
       )}
 
-      <View style={{...stylesGeral.ViewCamposCadastro, marginTop: 15}}>
+      <View style={{...stylesGeral.ViewCamposCadastro, marginTop: 15, flex: 1}}>    
         <Button mode="contained" onPress={_ontenhoInteressePressed} style={{height: 70, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={{fontSize:20}}>Tenho Interesse</Text>
+          <Text style={{fontSize:20, width: '100%', height: '100%'}}>Tenho Interesse</Text>
         </Button>
       </View>
-
 
       <View style={{ marginTop: 15, marginRight: 30, marginLeft: 30}}>
         <Button mode="contained" onPress={_onReservarPressed} >

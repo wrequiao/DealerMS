@@ -1,5 +1,6 @@
 import React, {useState, useEffect, memo} from 'react';
 import {View, Text, StyleSheet, Image, Alert} from 'react-native';
+import {TextInputMask} from 'react-native-masked-text';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Container from '~/componentes/tela/Container';
@@ -12,7 +13,6 @@ import {
   ajustarFormatoDadosCombo,
 } from '~/core/utils';
 
-import {TextInputMask} from 'react-native-masked-text';
 import Button from '~/componentes/tela/Button';
 import pickerSelectStyles from '~/assets/styles/pickerStyle';
 import RNPickerSelect from 'react-native-picker-select';
@@ -27,6 +27,7 @@ import {
   cadastrarPropostaVeiculo,
   getEstoqueVeiculos,
 } from '~/servicos/auth';
+
 
 const PropostaVeiculos = props => {
   const TempoRefresh = Global.TEMPO_REFRESH;
@@ -140,10 +141,19 @@ const PropostaVeiculos = props => {
     },
 
     label: {fontSize: fonts.tipo3, color: 'grey', marginRight: 5},
+
+    label2: {fontSize: fonts.tipo3, color: 'grey', marginRight: 5, marginTop: 10},
+
     textoDados: {
       fontSize: fonts.tipo2,
       fontWeight: 'bold',
       textAlign: 'center',
+    },
+
+    maskedStyle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      //textAlign: 'center',
     },
   });
 
@@ -217,16 +227,29 @@ const PropostaVeiculos = props => {
       //console.log(Veiculo_Preco.value)
       
       //return
-      //console.log('else debug2')
+      setLoading(false);
+
+      var pre = Veiculo_Preco.value.replace(".", "").replace(",", ".").replace("R$", "")
+      
+      //console.log('debug preco')
+      //console.log(pre)
+
+      if (pre == '0.00' ) {
+
+        Alert.alert(
+          'Informação',
+          'Valor da proposta deve ser maior que zero.',
+        );
+        setLoading(false);
+        return;
+      }
+
       let RetornoCadastro = await cadastrarPropostaVeiculo(
         VeiculoCodigo ? VeiculoCodigo : VeiculoAux.Veiculo_Codigo,
         AtendimentoSelecionado.value,
         PropostaObs.value, 
-        Veiculo_Preco.value.replace(".", "").replace(",", ".")
+        Veiculo_Preco.value.replace(".", "").replace(",", ".").replace("R$", "")
       );
-
-      //console.log('else debug3')
-      //console.log(RetornoCadastro)
 
       if (RetornoCadastro && RetornoCadastro.Ok) {
         setHabilitarCampos(false);
@@ -403,23 +426,28 @@ const PropostaVeiculos = props => {
         </View>
       <View style={styles.viewBase}>
         <View>
-          <Text style={styles.label}>Preço:</Text>
+          <Text style={styles.label2}>Preço:</Text>
         </View>
         <View
           style={{
+            padding: 10,
+            borderRadius: 5,
+            borderWidth: 1,
             width: 200,
             marginLeft: 25,
           }}>
-          <TextInput
-            //label="Busca Descrição"
-            styleContainer={{
-              ...stylesGeral.ContainerIpunts,
-              marginTop: -11,
+          <TextInputMask
+
+            placeholder="Valor"
+            type={'money'}
+            options={{
+              precision: 2,
+              separator: ',',
+              delimiter: '.',
+              unit: 'R$',
+              suffixUnit: ''
             }}
-            styleInput={{
-              height: 40,
-             // backgroundColor: theme.colors.terceary,
-            }} 
+            style={styles.maskedStyle}
             returnKeyType="next"
             value={Veiculo_Preco.value}
             onChangeText={text => setVeiculo_Preco({value: text, error: ''})}
@@ -430,9 +458,9 @@ const PropostaVeiculos = props => {
             textContentType="name"
             editable={true}
             //keyboardType="email-address"
-          >{}</TextInput>
+          />
         </View>
-        </View>
+      </View>
 
       <View style={{...stylesGeral.ViewCamposCadastro, marginTop: 20}}>
         <Button
