@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 
 import Touchable from 'react-native-platform-touchable';
@@ -96,6 +97,8 @@ const Home = props => {
 
   return (
     <Container loading={loading || refreshing} {...props} exibirHeader={false}>
+      <SafeAreaView style={{ flex: 0, backgroundColor: 'red' }} />
+      <StatusBar backgroundColor="#0098ED"/>
       <View
         style={{
           marginBottom: 20,

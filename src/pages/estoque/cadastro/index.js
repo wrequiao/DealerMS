@@ -18,6 +18,7 @@ import Carousel from '~/componentes/carousel/Carousel'
 import Slider from '~/componentes/carousel/Slider'
 import ImageElement from '~/componentes/carousel/ImageElement'
 import { TouchableHighlight } from 'react-native';
+import TextInput from '~/componentes/tela/TextInput';
 
 const EstoqueCadastro = props => {
   const TempoRefresh = Global.TEMPO_REFRESH;
@@ -58,6 +59,7 @@ const [modalImage, setModalImage] = useState(null);
       borderColor: 'grey',
       position: 'relative',
       marginBottom: 15,
+      borderRadius: 5,
     },
 
     label: {fontSize: fonts.tipo3, color: 'grey', marginRight: 5},
@@ -85,6 +87,7 @@ const [modalImage, setModalImage] = useState(null);
     cardPrecoItem: {
         borderWidth: 1,
         padding: 5,
+        borderRadius: 5,
     },
     cardPreco: {
       flex: 1, 
@@ -203,7 +206,7 @@ function ImagePress(val){
           {Veiculo.Veiculo_Preco ? 'R$ ' + Veiculo.Veiculo_Preco : <></>}
         </Text>
       </View>
-      
+
       {Veiculo_Imagens.length > 0 ?  (   
           <View >
             <Slider images={Veiculo_Imagens} onImagePress={ImagePress}/>
@@ -228,91 +231,87 @@ function ImagePress(val){
         </View>
       </View>
 
-      <View style={styles.viewBase}>
-        <View>
-          <Text style={styles.label}>Chassi:</Text>
-        </View>
-        <View style={{...styles.viewTexto}}>
-          <Text style={styles.textoDados}>{Veiculo.Veiculo_Chassi}</Text>
-        </View>
+      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
+          <TextInput
+            label="Chassi"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '100%'}}
+            styleInput={{height: 45}}
+            value={Veiculo.Veiculo_Chassi}
+            editable={!false}
+          />
       </View>
-      <View style={styles.viewBase}>
-        <View>
-          <Text style={styles.label}>Placa:</Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <View style={{...styles.viewTexto}}>
-            <Text style={styles.textoDados}>{Veiculo.Veiculo_Placa}</Text>
-          </View>
-          <View style={{...styles.viewTexto}}>
-            <Text style={styles.textoDados}>{Veiculo.Veiculo_Marca}</Text>
-          </View>
-        </View>
+
+      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
+          <TextInput
+            label="Placa"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '100%'}}
+            styleInput={{height: 45}}
+            value={Veiculo.Veiculo_Placa + ' - ' +Veiculo.Veiculo_Marca}
+            editable={!false}
+          />
       </View>
-      <View style={styles.viewBase}>
-        <View style={stylesGeral.ViewPadrao}>
-          <View>
-            <Text style={{...styles.label, textAlign: 'center'}}>Comb.</Text>
-          </View>
-          <View style={{...styles.viewTexto}}>
-            <Text style={styles.textoDados}>{Veiculo.Veiculo_Combustivel}</Text>
-          </View>
-        </View>
-        <View style={stylesGeral.ViewPadrao}>
-          <View>
-            <Text style={{...styles.label, textAlign: 'center'}}>KM</Text>
-          </View>
-          <View style={{...styles.viewTexto}}>
-            <Text style={styles.textoDados}>{Veiculo.Veiculo_KM}</Text>
-          </View>
-        </View>
-        <View style={stylesGeral.ViewPadrao}>
-          <View>
-            <Text style={{...styles.label, textAlign: 'center'}}>Ano</Text>
-          </View>
-          <View style={{...styles.viewTexto}}>
-            <Text style={styles.textoDados}>{Veiculo.Veiculo_Ano_Modelo}</Text>
-          </View>
-        </View>
+
+      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
+          <TextInput
+            label="Comb."
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
+            styleInput={{height: 45}}
+            value={Veiculo.Veiculo_Combustivel}
+            editable={!false}
+          />
+          <TextInput
+            label="KM"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
+            styleInput={{height: 45}}
+            value={Veiculo.Veiculo_Combustivel}
+            editable={!false}
+          />
+
+          <TextInput
+            label="Ano"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
+            styleInput={{height: 45}}
+            value={Veiculo.Veiculo_Ano_Modelo}
+            editable={!false}
+          />
       </View>
-      <View style={styles.viewBase}>
-        <View style={stylesGeral.ViewPadrao}>
-          <View>
-            <Text style={{...styles.label, textAlign: 'center'}}>Cor</Text>
-          </View>
-          <View style={{...styles.viewTexto}}>
-            <Text style={styles.textoDados}>{Veiculo.Veiculo_Cor}</Text>
-          </View>
-        </View>
-        <View style={stylesGeral.ViewPadrao}>
-          <View>
-            <Text style={{...styles.label, textAlign: 'center'}}>Dias</Text>
-          </View>
-          <View style={{...styles.viewTexto}}>
-            <Text style={styles.textoDados}>
-              {Veiculo.Veiculo_Dias_Estoque}
-            </Text>
-          </View>
-        </View>
-        <View style={stylesGeral.ViewPadrao}>
-          <View>
-            <Text style={{...styles.label, textAlign: 'center'}}>Tipo</Text>
-          </View>
-          <View style={{...styles.viewTexto}}>
-            <Text style={styles.textoDados}>
-              {Veiculo.Veiculo_Estoque_Tipo}
-            </Text>
-          </View>
-        </View>
+
+      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
+          <TextInput
+            label="Cor"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
+            styleInput={{height: 45}}
+            value={Veiculo.Veiculo_Cor}
+            editable={!false}
+          />
+          <TextInput
+            label="Dias"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
+            styleInput={{height: 45}}
+            value={Veiculo.Veiculo_Dias_Estoque}
+            editable={!false}
+          />
+
+          <TextInput
+            label="Tipo"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
+            styleInput={{height: 45}}
+            value={Veiculo.Veiculo_Estoque_Tipo}
+            editable={!false}
+          />
       </View>
-      <View style={styles.viewBase}>
-        <View>
-          <Text style={styles.label}>Empresa:</Text>
-        </View>
-        <View style={{...styles.viewTexto}}>
-          <Text style={styles.textoDados}>{Veiculo.Veiculo_Empresa_Nome}</Text>
-        </View>
+
+
+      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
+          <TextInput
+            label="Empresa"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '100%'}}
+            styleInput={{height: 45}}
+            value={Veiculo.Veiculo_Empresa_Nome}
+            editable={!false}
+          />
       </View>
+
       <View style={{...styles.viewBase, flexDirection: 'column'}}>
         <View>
           <Text style={styles.label}>Descrição do veículo:</Text>
@@ -323,6 +322,7 @@ function ImagePress(val){
             padding: 15,
             backgroundColor: theme.colors.terceary,
             minHeight: 150,
+            borderRadius: 5,
           }}>
           <Text style={{...styles.textoDados, textAlign: 'auto'}}>
             {Veiculo.Veiculo_Descricao}

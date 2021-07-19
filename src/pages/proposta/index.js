@@ -333,82 +333,35 @@ const PropostaVeiculos = props => {
       <View style={styles.viewBase}>
         <View style={{...styles.viewTextoModelo}}>
           <Text style={{...styles.textoDados, fontSize: fonts.tipo4}}>
-           {Veiculo_Modelo_Desc.value}
-           
+           {Veiculo_Modelo_Desc.value}     
           </Text>
         </View>
       </View>
 
-      <View style={styles.viewBase}>
-        <View>
-          <Text style={styles.label}>Chassi:</Text>
-        </View>
-        <View
-          style={{
-            width: 200,
-            marginLeft: 25,
-          }}>
+      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
           <TextInput
-            //label="Busca Descrição"
-            styleContainer={{
-              ...stylesGeral.ContainerIpunts,
-              marginTop: -11,
-            }}
-            styleInput={{
-              height: 40,
-              backgroundColor: theme.colors.terceary,
-            }}
-            returnKeyType="next"
+            label="Chassi"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '100%'}}
+            styleInput={{height: 45}}
             value={Chassi.value}
-           // onChangeText={text => setChassi({value: text, error: ''})}
-            error={!!Chassi.error}
-            errorText={Chassi.error}
-            //autoCapitalize="none"
-            autoCompleteType="name"
-            textContentType="name"
-            editable={false}
-            //keyboardType="email-address"
+            editable={!false}
           />
-        </View>
       </View>
-      <View style={styles.viewBase}>
-        <View>
-          <Text style={styles.label}>Placa:</Text>
-        </View>
-        <View
-          style={{
-            width: 150,
-            marginLeft: 35,
-          }}>
 
+      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
           <TextInput
-            //label="Busca Descrição"
-            styleContainer={{
-              ...stylesGeral.ContainerIpunts,
-              marginTop: -11,
-            }}
-            styleInput={{
-              height: 40,
-              backgroundColor: theme.colors.terceary,
-            }}
-            returnKeyType="next"
+            label="Placa"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '100%'}}
+            styleInput={{height: 45}}
             value={Placa.value}
-           // onChangeText={text => setPlaca({value: text, error: ''})}
-            error={!!Placa.error}
-            errorText={Placa.error}
-            //autoCapitalize="none"
-            autoCompleteType="name"
-            textContentType="name"
-            editable={false}
-            //keyboardType="email-address"
+            editable={!false}
           />
-        </View>
       </View>
 
-      <View style={stylesGeral.ViewCamposCadastro}>
+      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
           <TextInput
             label="Observações da Proposta"
-            styleContainer={stylesGeral.ContainerIpunts}
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '100%'}}
             returnKeyType="next"
             value={PropostaObs.value}
             maxLength={100}
@@ -425,20 +378,17 @@ const PropostaVeiculos = props => {
           />
         </View>
       <View style={styles.viewBase}>
-        <View>
-          <Text style={styles.label2}>Preço:</Text>
-        </View>
         <View
           style={{
             padding: 10,
             borderRadius: 5,
             borderWidth: 1,
             width: 200,
-            marginLeft: 25,
+            marginLeft: 0,
           }}>
           <TextInputMask
 
-            placeholder="Valor"
+            placeholder="Preço"
             type={'money'}
             options={{
               precision: 2,
@@ -447,6 +397,7 @@ const PropostaVeiculos = props => {
               unit: 'R$',
               suffixUnit: ''
             }}
+            label="Preço"
             style={styles.maskedStyle}
             returnKeyType="next"
             value={Veiculo_Preco.value}
