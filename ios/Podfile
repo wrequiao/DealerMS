@@ -81,6 +81,8 @@ target 'dealer_ms' do
 
 
 
+
+
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'dealer_msTests' do

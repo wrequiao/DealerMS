@@ -98,7 +98,7 @@ const Home = props => {
   return (
     <Container loading={loading || refreshing} {...props} exibirHeader={false}>
       <SafeAreaView style={{ flex: 0, backgroundColor: 'red' }} />
-      <StatusBar backgroundColor="#0098ED"/>
+      <StatusBar backgroundColor="#052e4c"/>
       <View
         style={{
           marginBottom: 20,

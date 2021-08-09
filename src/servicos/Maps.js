@@ -73,8 +73,8 @@ export const getEmpresasMap = DataXML => {
   let TabelaLinhasDeCamposCorresp = [
     {LabelOBJ: 'Empresa_Codigo', LabelXML: 'Empresa_Codigo'},
     {LabelOBJ: 'Empresa_Nome', LabelXML: 'Empresa_Nome'},
+    {LabelOBJ: 'Empresa_Default', LabelXML: 'Empresa_Default'},
   ];
-
   return getObjectParser(DataXML, TabelaLinhasDeCamposCorresp);
 };
 
