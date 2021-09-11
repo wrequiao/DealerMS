@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
-  
+  Alert,
 } from 'react-native';
 
 import { CheckBox } from 'react-native-elements'
@@ -99,14 +99,20 @@ const EstoqueListagem = props => {
     if (loading) return;
     setLoading(true);
 
+    
     let EstoqueAux = await getEstoqueVeiculos(
       TipoEstoqueSelecionado.value,
       BuscaDescricao.value,
       false,
       checked
     );
-    //console.log('\n', EstoqueAux);
+    console.log('\n', EstoqueAux.length);
     //console.log('\n\n\n', Estoque[0]);
+    if (EstoqueAux.length == 0){//alterado
+      setLoading(false);
+      Alert.alert('Informação', 'Consulta não retornou dados.');
+      return
+    }
 
     setEstoque(EstoqueAux);
     setLoading(false);
@@ -121,6 +127,13 @@ const EstoqueListagem = props => {
   }
 
   const filtrar = function() {
+    
+    if (TipoEstoqueSelecionado.value == '')
+    {
+      Alert.alert('Informação', 'Selecione ao menos um tipo de estoque.');
+      return
+    }
+
     setMostrarFiltro(false);
     carregarEstoque();
     return true;

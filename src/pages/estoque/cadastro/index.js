@@ -254,36 +254,29 @@ function ImagePress(val){
       <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
           <TextInput
             label="Comb."
-            styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '50%'}}
             styleInput={{height: 45}}
             value={Veiculo.Veiculo_Combustivel}
             editable={!false}
           />
           <TextInput
             label="KM"
-            styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '50%'}}
             styleInput={{height: 45}}
-            value={Veiculo.Veiculo_Combustivel}
+            value={Veiculo.Veiculo_KM}
             editable={!false}
-          />
+          />   
+      </View>
 
-          <TextInput
+      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
+           <TextInput
             label="Ano"
             styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
             styleInput={{height: 45}}
             value={Veiculo.Veiculo_Ano_Modelo}
             editable={!false}
           />
-      </View>
 
-      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
-          <TextInput
-            label="Cor"
-            styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
-            styleInput={{height: 45}}
-            value={Veiculo.Veiculo_Cor}
-            editable={!false}
-          />
           <TextInput
             label="Dias"
             styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
@@ -294,13 +287,22 @@ function ImagePress(val){
 
           <TextInput
             label="Tipo"
-            styleContainer={{...stylesGeral.ContainerIpunts, width: '33%'}}
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '34%'}}
             styleInput={{height: 45}}
             value={Veiculo.Veiculo_Estoque_Tipo}
             editable={!false}
           />
       </View>
 
+      <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
+          <TextInput
+            label="Cor"
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '100%'}}
+            styleInput={{height: 45}}
+            value={Veiculo.Veiculo_Cor}
+            editable={!false}
+          />
+      </View>
 
       <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
           <TextInput

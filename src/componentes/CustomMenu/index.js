@@ -98,7 +98,7 @@ export const CustomMenu = (props, UsuarioDesc) => {
       </ScrollView>
       <View style={{position: 'absolute', right: 0, bottom: 0, padding: 20}}>
         <Text style={{...styles.textItemMenu, fontSize: fonts.tipo1}}>
-          Versão 1.0.15
+          Versão 1.6
         </Text>
       </View>
     </SafeAreaView>

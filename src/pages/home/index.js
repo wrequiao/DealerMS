@@ -9,6 +9,7 @@ import {
   Image,
   SafeAreaView,
   StatusBar,
+  Alert,
 } from 'react-native';
 
 import Touchable from 'react-native-platform-touchable';
@@ -70,6 +71,7 @@ const Home = props => {
   };
 
   function _onFluxosPress() {
+    Alert.alert('Informação', 'Nenhum fluxo ainda por aqui. Estamos trabalhando neste recurso e em breve teremos mais esta novidade.');
     return true;
   }
   function _onEstoquePress() {

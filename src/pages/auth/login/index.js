@@ -83,8 +83,13 @@ const LoginScreen = ({navigation}) => {
       let Empresadefault = Empresas.filter(empresa => (empresa.Empresa_Default != '0'));
 
       if (Empresas[0]) {
-        let EmpresaSelecionada = Empresadefault[0].Empresa_Codigo;
-
+        let EmpresaSelecionada = Empresas[0].Empresa_Codigo;
+        
+        if (Empresadefault[0])
+        {
+          EmpresaSelecionada = Empresadefault[0].Empresa_Codigo;
+        }
+          
         await signIn(
           email.value,
           password.value,
