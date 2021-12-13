@@ -9,7 +9,8 @@ import {
   getCadastroDeReservaXMLSOAP,
   getDadosDashboardXMLSOAP,
   getConsultaClienteXMLSOAP,
-  getCadastroDePropostaXMLSOAP
+  getCadastroDePropostaXMLSOAP,
+  getPropostaVeiculosXMLSOAP
 } from './SoapXMLs';
 const XMLParser = require('react-xml-parser');
 
@@ -767,6 +768,134 @@ export const executarAPIJson = async Recurso => {
     return await response.json();
   } catch (err) {
     console.log('Houve um erro ao executar a conexão JSON. Erro: ' + err);
+  }
+};
+
+
+export const getPropostaVeiculos = async (
+  TipoData,
+  DtIni,
+  DtFim,
+  Atendimento,
+  ChassiPlaca,
+  Proposta,
+  Pedido,
+  TipoConsulta, 
+  FluxoAtividade
+) => {
+  console.log('Data1');
+  let DadosUsuario = await getUsuario();
+  let Data = getPropostaVeiculosXMLSOAP()
+    .replace(/{USUARIO}/g, DadosUsuario.Login)
+    .replace(/{SENHA}/g, DadosUsuario.Senha)
+    .replace(/{EMPRESA_CODIGO}/g, DadosUsuario.EmpresaSelecionada)
+    .replace(/{TIPO_CONSULTA}/g, TipoConsulta)//L (Lista), D (Detalhe), F (Fluxo)
+    .replace(/{FLUXO_ATIVIDADE}/g, FluxoAtividade)//opc 'Autorizar VN', 'Autorizar VU', 'Autorizar VD/VI','Autorizar VM'
+    .replace(/{PROPOSTA_CODIGO}/g, Proposta)
+    .replace(/{PROPOSTA_PEDIDO}/g, Pedido)
+    .replace(/{ATENDIMENTO_CODIGO}/g, Atendimento)
+    .replace(/{CHASSI_PLACA}/g, ChassiPlaca)
+    .replace(/{TIPO_DATA}/g, TipoData)//TipoData.toString())
+    .replace(/{DATA_INICIAL}/g, DtIni)
+    .replace(/{DATA_FINAL}/g, DtFim)
+    
+ if (MOSTRAR_DATA_ENVIO) {
+    console.log(Data);
+  }
+  
+  let XMLResposta = await executarAPIServico(Data);
+  let RetornoCod = XMLResposta.getElementsByTagName('RetornoCod')[0];
+  let ValorRetorno = RetornoCod ? RetornoCod.value == 1 : false;
+  
+  if (ValorRetorno) {
+    let MidiasXML = XMLResposta.getElementsByTagName('Propostas');
+    console.log(MidiasXML)
+    let EstoqueXML = XMLResposta.getElementsByTagName('XMLRetorno')[0];
+    let data = JSON.parse(EstoqueXML.value)
+    return data;
+  } else {
+    return false;
+  }
+};
+
+
+export const getPropostaVeiculosDetalhes = async (
+  TipoData,
+  DtIni,
+  DtFim,
+  Atendimento,
+  ChassiPlaca,
+  Proposta,
+  Pedido,
+  TipoConsulta, 
+  FluxoAtividade
+) => {
+  
+  let DadosUsuario = await getUsuario();
+  let Data = getPropostaVeiculosXMLSOAP()
+    .replace(/{USUARIO}/g, DadosUsuario.Login)
+    .replace(/{SENHA}/g, DadosUsuario.Senha)
+    .replace(/{EMPRESA_CODIGO}/g, DadosUsuario.EmpresaSelecionada)
+    .replace(/{TIPO_CONSULTA}/g, TipoConsulta)//L (Lista), D (Detalhe), F (Fluxo)
+    .replace(/{FLUXO_ATIVIDADE}/g, FluxoAtividade)//opc 'Autorizar VN', 'Autorizar VU', 'Autorizar VD/VI','Autorizar VM'
+    .replace(/{PROPOSTA_CODIGO}/g, Proposta)
+    .replace(/{PROPOSTA_PEDIDO}/g, Pedido)
+    .replace(/{ATENDIMENTO_CODIGO}/g, Atendimento)
+    .replace(/{CHASSI_PLACA}/g, ChassiPlaca)
+    .replace(/{TIPO_DATA}/g, TipoData)//TipoData.toString())
+    .replace(/{DATA_INICIAL}/g, DtIni)
+    .replace(/{DATA_FINAL}/g, DtFim)
+    
+ if (MOSTRAR_DATA_ENVIO) {
+    console.log(Data);
+  }
+  
+  let XMLResposta = await executarAPIServico(Data);
+  let RetornoCod = XMLResposta.getElementsByTagName('RetornoCod')[0];
+  let ValorRetorno = RetornoCod ? RetornoCod.value == 1 : false;
+  
+  if (ValorRetorno) {
+    //let MidiasXML = XMLResposta.getElementsByTagName('Propostas');
+    //console.log('MidiasXML detalhes')
+    //console.log(MidiasXML)
+    let propostaXML = XMLResposta.getElementsByTagName('XMLRetorno')[0];
+    let data = JSON.parse(propostaXML.value)
+    //console.log('propostas detalhes com codigo data2') 
+    //console.log(data.Propostas)
+return data.Propostas;
+
+    data.Propostas.forEach(function(propostas) {
+       console.log('propostas detalhes com codigo') 
+       let propostasRoot = propostas.Proposta
+       //console.log(propostas) 
+       propostasRoot.forEach(function(proposta) {
+          console.log(proposta.Proposta_Codigo) 
+          console.log('propostaforeach') 
+          console.log(proposta) 
+          return proposta;
+          let custos = proposta.Custos.Custo
+          console.log('custos')
+          console.log(custos)
+          custos.forEach(function(custo) {
+            console.log(custo.Custo_Descricao)
+            console.log(custo.Custo_Valor)
+          })
+
+          let parcelas = proposta.Parcelas.Parcela
+          console.log('parcelas')
+          console.log(parcelas)
+          console.log('parcelas0')
+          console.log(proposta.Parcelas)
+          parcelas.forEach(function(parcela) {
+            console.log(parcela.Parcela_Descricao)
+          })
+      })
+    })
+    
+
+    //return true;
+  } else {
+    return false;
   }
 };
 

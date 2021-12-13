@@ -11,7 +11,9 @@ import {AtendimentosCadastro} from '../pages/atendimento';
 import {EstoqueListagem} from '../pages/estoque';
 import {EstoqueCadastro} from '../pages/estoque';
 import ReservaVeiculos from '../pages/reserva';
-import PropostaVeiculos from '../pages/proposta';
+import PropostaVeiculos from '../pages/proposta/cadastro';
+import PropostaVeiculosListagem from '../pages/proposta/listagem';
+import PropostaDetalhes from '../pages/proposta/detalhe';
 import AuthRouter from './auth_router';
 
 import {createStackNavigator} from '@react-navigation/stack';
@@ -68,6 +70,8 @@ function MyStack() {
       <Tab.Screen name="EstoqueCadastro" component={EstoqueCadastro} />
       <Tab.Screen name="ReservaVeiculos" component={ReservaVeiculos} />
       <Tab.Screen name="PropostaVeiculos" component={PropostaVeiculos} />
+      <Tab.Screen name="PropostaVeiculosListagem" component={PropostaVeiculosListagem} />
+      <Tab.Screen name="PropostaDetalhes" component={PropostaDetalhes} />
       <Tab.Screen name="Auth" component={AuthRouter} />
     </Tab.Navigator>
   );
