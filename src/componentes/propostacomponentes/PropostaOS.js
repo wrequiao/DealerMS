@@ -58,8 +58,6 @@ const styles = StyleSheet.create({
   const [showModal, setShowModal] = useState(visible);
   const scaleValue = useRef(new Animated.Value(0)).current;
   useEffect(() => {
-    console.log('osparamff')
-    console.log(osParam)
     toggleModal();
   }, [visible]);
   const toggleModal = () => {
@@ -80,10 +78,9 @@ const styles = StyleSheet.create({
     }
   };
   return (
-    <Modal transparent visible={showModal} osParam={osParam}> 
+    <Modal transparent visible={showModal}> 
       <View style={styles.modalBackGround}>
-        <Text>{osParam}</Text>
-        <Animated.View
+      <Animated.View
           style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
           {children}
         </Animated.View>
@@ -157,7 +154,7 @@ const [osData, setOsData] = useState({});
   }
 
   const element = (data, index) => (
-    <TouchableOpacity onPress={() => this._alertIndex(data.OS_Codigo)}>
+    <TouchableOpacity onPress={() => this._alertIndex(data)}>
       <View style={styles.ico}>
         <Icon name="search" color="#0000CD" />
       </View>
@@ -173,17 +170,11 @@ const [osData, setOsData] = useState({});
   })
 
   toggleModal = () => {
-    console.log('tooglew_visible')
-    console.log(visible)
-    //setviewModal(!viewModal)
     setVisible(!visible)
-  // this.state.viewModal = !this.state.viewModal
   };
 
   _alertIndex = (os) => { 
-    //Alert.alert(`This is os ${JSON.stringify(os)}`);
-    //osParam = index;
-    setOsData(JSON.stringify(os));
+    setOsData(os);
     this.toggleModal();
   }
 
@@ -192,14 +183,11 @@ const [osData, setOsData] = useState({});
       <View style={styles.container}>
 
 
-      <ModalPoup osParam={osData} visible={visible}>
+      <ModalPoup  visible={visible}>
         <View style={{alignItems: 'center'}}>
           <View style={styles.header}>
             <TouchableOpacity onPress={() => setVisible(false)}>
-              <Image
-                source={require('~/assets/add.png')}
-                style={{height: 30, width: 30}}
-              />
+            <Text >[X]</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -213,11 +201,11 @@ const [osData, setOsData] = useState({});
         </View>
 
         <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
-          {osParam}
+          {osData.OS_Codigo +'-'+osData.TipoOS_Sigla}
         </Text>
 
         <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
-          Congratulations registration was successful
+          Tela Modal
         </Text>
       </ModalPoup>
 

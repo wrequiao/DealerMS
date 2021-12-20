@@ -15,6 +15,7 @@ import PropostaVeiculos from '../pages/proposta/cadastro';
 import PropostaVeiculosListagem from '../pages/proposta/listagem';
 import PropostaDetalhes from '../pages/proposta/detalhe';
 import AuthRouter from './auth_router';
+import {FluxoListagem} from '../pages/fluxo';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -73,6 +74,7 @@ function MyStack() {
       <Tab.Screen name="PropostaVeiculosListagem" component={PropostaVeiculosListagem} />
       <Tab.Screen name="PropostaDetalhes" component={PropostaDetalhes} />
       <Tab.Screen name="Auth" component={AuthRouter} />
+      <Tab.Screen name="FluxoListagem" component={FluxoListagem} />
     </Tab.Navigator>
   );
 }

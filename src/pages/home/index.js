@@ -71,8 +71,9 @@ const Home = props => {
   };
 
   function _onFluxosPress() {
-    Alert.alert('Informação', 'Nenhum fluxo ainda por aqui. Estamos trabalhando neste recurso e em breve teremos mais esta novidade.');
-    return true;
+    //Alert.alert('Informação', 'Nenhum fluxo ainda por aqui. Estamos trabalhando neste recurso e em breve teremos mais esta novidade.');
+    //return true;
+    props.navigation.navigate('FluxoListagem');
   }
   function _onEstoquePress() {
     props.navigation.navigate('EstoqueListagem');

@@ -181,6 +181,21 @@ function ImagePress(val){
     props.navigation.navigate('ReservaVeiculos');
   }
 
+  async function _onSimulacaoPressed() {
+    Keyboard.dismiss();
+    console.log('valor veiculo')
+    console.log(Veiculo.Veiculo_Preco)
+
+    console.log('codigo veiculo')
+    console.log(Veiculo.Veiculo_Codigo)
+
+    await AsyncStorage.setItem(
+      '@Veiculo_Codigo_Reserva',
+      Veiculo.Veiculo_Codigo.toString(),
+    );
+   // props.navigation.navigate('ReservaVeiculos');
+  }
+
   async function _ontenhoInteressePressed() {
     Keyboard.dismiss();
 
@@ -376,6 +391,11 @@ function ImagePress(val){
       <View style={{ marginTop: 15, marginRight: 30, marginLeft: 30}}>
         <Button mode="contained" onPress={_onReservarPressed} >
           Reservar
+        </Button>
+      </View>
+      <View style={{ marginTop: 15, marginRight: 30, marginLeft: 30}}>
+        <Button mode="contained" onPress={_onSimulacaoPressed} >
+          Custo
         </Button>
       </View>
     </Container>

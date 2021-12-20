@@ -899,3 +899,47 @@ return data.Propostas;
   }
 };
 
+export const getPropostaFluxos = async (
+  TipoData,
+  DtIni,
+  DtFim,
+  Atendimento,
+  ChassiPlaca,
+  Proposta,
+  Pedido,
+  TipoConsulta, 
+  FluxoAtividade
+) => {
+  
+  let DadosUsuario = await getUsuario();
+  let Data = getPropostaVeiculosXMLSOAP()
+    .replace(/{USUARIO}/g, DadosUsuario.Login)
+    .replace(/{SENHA}/g, DadosUsuario.Senha)
+    .replace(/{EMPRESA_CODIGO}/g, DadosUsuario.EmpresaSelecionada)
+    .replace(/{TIPO_CONSULTA}/g, TipoConsulta)//L (Lista), D (Detalhe), F (Fluxo)
+    .replace(/{FLUXO_ATIVIDADE}/g, FluxoAtividade)//opc 'Autorizar VN', 'Autorizar VU', 'Autorizar VD/VI','Autorizar VM'
+    .replace(/{PROPOSTA_CODIGO}/g, Proposta)
+    .replace(/{PROPOSTA_PEDIDO}/g, Pedido)
+    .replace(/{ATENDIMENTO_CODIGO}/g, Atendimento)
+    .replace(/{CHASSI_PLACA}/g, ChassiPlaca)
+    .replace(/{TIPO_DATA}/g, TipoData)//TipoData.toString())
+    .replace(/{DATA_INICIAL}/g, DtIni)
+    .replace(/{DATA_FINAL}/g, DtFim)
+    
+ if (MOSTRAR_DATA_ENVIO) {
+    console.log(Data);
+  }
+  
+  let XMLResposta = await executarAPIServico(Data);
+  let RetornoCod = XMLResposta.getElementsByTagName('RetornoCod')[0];
+  let ValorRetorno = RetornoCod ? RetornoCod.value == 1 : false;
+  
+  if (ValorRetorno) {
+    let dadosXml = XMLResposta.getElementsByTagName('XMLRetorno')[0];
+    let data = JSON.parse(dadosXml.value)
+    return data.Fluxos_Proposta;
+  } else {
+    return false;
+  }
+};
+
