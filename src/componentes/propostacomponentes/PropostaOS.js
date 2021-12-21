@@ -3,6 +3,7 @@ import { StyleSheet, View, ScrollView, Alert, Text, Button, Modal, Image, Toucha
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import PropostaOSDetalhes from '~/componentes/propostacomponentes/PropostaOSDetalhes'
 
 const ModalPoup = ({osParam, visible, children}) => {
 
@@ -191,22 +192,7 @@ const [osData, setOsData] = useState({});
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{alignItems: 'center'}}>
-        <TouchableOpacity onPress={() => setVisible(false)}>
-          <Image
-            source={require('~/assets/avatar.png')}
-            style={{height: 150, width: 150, marginVertical: 10}}
-          />
-          </TouchableOpacity>
-        </View>
-
-        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
-          {osData.OS_Codigo +'-'+osData.TipoOS_Sigla}
-        </Text>
-
-        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
-          Tela Modal
-        </Text>
+       <PropostaOSDetalhes OSs={osData}/>
       </ModalPoup>
 
         <ScrollView horizontal={true}>
