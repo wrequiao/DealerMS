@@ -134,14 +134,14 @@ const [osData, setOsData] = useState({});
                     <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
                     <TextInput
                         label="Consultor Técnico"
-                        styleContainer={{...stylesGeral.ContainerIpunts, width: '73%'}}
+                        styleContainer={{...stylesGeral.ContainerIpunts, width: '70%'}}
                         styleInput={{height: 45}}
                         returnKeyType="next"
                         value={props.OSs.TipoOS_ConsultorTecnico}
                     />
                     <TextInput
                         label="Tipo O.S"
-                        styleContainer={{...stylesGeral.ContainerIpunts, width: '27%'}}
+                        styleContainer={{...stylesGeral.ContainerIpunts, width: '30%'}}
                         styleInput={{height: 45}}
                         returnKeyType="next"
                         value={props.OSs.TipoOS_Sigla}
