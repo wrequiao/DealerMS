@@ -10,7 +10,8 @@ import {
   getDadosDashboardXMLSOAP,
   getConsultaClienteXMLSOAP,
   getCadastroDePropostaXMLSOAP,
-  getPropostaVeiculosXMLSOAP
+  getPropostaVeiculosXMLSOAP,
+  getCustosVeiculosSimulacaoXMLSOAP,
 } from './SoapXMLs';
 const XMLParser = require('react-xml-parser');
 
@@ -943,3 +944,77 @@ export const getPropostaFluxos = async (
   }
 };
 
+
+
+
+export const getCustosVeiculoSimulacao = async (
+  TipoData,
+  DtIni,
+  DtFim,
+  Atendimento,
+  ChassiPlaca,
+  Proposta,
+  Pedido,
+  TipoConsulta, 
+  FluxoAtividade,
+  Valor_Simulacao, 
+  Veiculo_Simulacao,
+) => {
+  
+  console.log('call 00') 
+  let DadosUsuario = await getUsuario();
+
+  console.log('call 01') 
+
+  let Data = getCustosVeiculosSimulacaoXMLSOAP()
+    .replace(/{USUARIO}/g, DadosUsuario.Login)
+    .replace(/{SENHA}/g, DadosUsuario.Senha)
+    .replace(/{EMPRESA_CODIGO}/g, DadosUsuario.EmpresaSelecionada)
+    .replace(/{TIPO_CONSULTA}/g, TipoConsulta)//L (Lista), D (Detalhe), F (Fluxo)
+    .replace(/{FLUXO_ATIVIDADE}/g, FluxoAtividade)//opc 'Autorizar VN', 'Autorizar VU', 'Autorizar VD/VI','Autorizar VM'
+    .replace(/{PROPOSTA_CODIGO}/g, Proposta)
+    .replace(/{PROPOSTA_PEDIDO}/g, Pedido)
+    .replace(/{ATENDIMENTO_CODIGO}/g, Atendimento)
+    .replace(/{CHASSI_PLACA}/g, ChassiPlaca)
+    .replace(/{TIPO_DATA}/g, TipoData)//TipoData.toString())
+    .replace(/{DATA_INICIAL}/g, DtIni)
+    .replace(/{DATA_FINAL}/g, DtFim)
+    .replace(/{VALOR_SIMULACAO}/g, Valor_Simulacao)
+    .replace(/{VEICULO_SIMULACAO}/g, Veiculo_Simulacao)
+    
+ //if (MOSTRAR_DATA_ENVIO) {
+  console.log('call 02 data') 
+    console.log(Data);
+  //}
+  console.log('call 02') 
+
+  let XMLResposta = await executarAPIServico(Data);
+  console.log('call 03') 
+  console.log(XMLResposta) 
+
+  let RetornoCod = XMLResposta.getElementsByTagName('RetornoCod')[0];
+  console.log('call 04') 
+  console.log(RetornoCod) 
+
+  let ValorRetorno = RetornoCod ? RetornoCod.value == 1 : false;
+  console.log('call 05') 
+  console.log(ValorRetorno) 
+
+  if (ValorRetorno) {
+    //let MidiasXML = XMLResposta.getElementsByTagName('Propostas');
+    //console.log('MidiasXML detalhes')
+    //console.log(MidiasXML)
+    console.log('call 06') 
+
+    let propostaXML = XMLResposta.getElementsByTagName('XMLRetorno')[0];
+    console.log('propostas detalhes com codigo data2 simulacao propostaXML') 
+    console.log(propostaXML.value)
+    let data = JSON.parse(propostaXML.value)
+    console.log('propostas detalhes com codigo data3 simulacao') 
+    console.log(JSON.stringify(data.Propostas))
+    return data.Propostas;
+
+  } else {
+    return false;
+  }
+};

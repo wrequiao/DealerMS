@@ -321,4 +321,44 @@ export const getPropostaVeiculosXMLSOAP = () => {
    return XML;
  };
 
+
+
+ export const getCustosVeiculosSimulacaoXMLSOAP = () => {
+   let Parametros = tratarParametros(`
+    <Parametros>
+    <Empresa_Codigo>{EMPRESA_CODIGO}</Empresa_Codigo>
+    <Usuario_Identificador>{USUARIO}</Usuario_Identificador>
+    <Tipo_Consulta>{TIPO_CONSULTA}</Tipo_Consulta>
+    <Fluxo_Atividade>{FLUXO_ATIVIDADE}</Fluxo_Atividade>
+    <Proposta_Codigo>{PROPOSTA_CODIGO}</Proposta_Codigo> 
+    <Proposta_Pedido>{PROPOSTA_PEDIDO}</Proposta_Pedido> 
+    <Atendimento_Codigo>{ATENDIMENTO_CODIGO}</Atendimento_Codigo> 
+    <Chassi_Placa>{CHASSI_PLACA}</Chassi_Placa> 
+    <Tipo_Data>{TIPO_DATA}</Tipo_Data> 
+    <Data_Inicial>{DATA_INICIAL}</Data_Inicial> 
+    <Data_Final>{DATA_FINAL}</Data_Final> 
+    <Valor_Simulacao>{VALOR_SIMULACAO}</Valor_Simulacao> 
+    <Veiculo_Simulacao>{VEICULO_SIMULACAO}</Veiculo_Simulacao> 
+    </Parametros>`);
+ 
+   let XML =
+     `
+  <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">
+     <soap:Header />
+     <soap:Body>
+        <tem:ConsultarProposta>
+           <tem:Acesso>
+              <tem:Usuario>{USUARIO}</tem:Usuario>
+              <tem:Senha>{SENHA}</tem:Senha>
+           </tem:Acesso>
+           <tem:XMLParametros>` +
+     Parametros +
+     `</tem:XMLParametros>
+        </tem:ConsultarProposta>
+     </soap:Body>
+  </soap:Envelope>`;
+ 
+   return XML;
+ };
+
  

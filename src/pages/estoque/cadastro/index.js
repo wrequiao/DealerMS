@@ -1,5 +1,6 @@
-import React, {useState, useEffect, memo} from 'react';
-import {Modal, View, Text, StyleSheet, Image, Keyboard, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect, memo, useRef} from 'react';
+
+import {Modal, View, Text, StyleSheet, Image, Keyboard, TouchableOpacity, Animated} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Container from '~/componentes/tela/Container';
@@ -10,7 +11,7 @@ import {fonts} from '~/core/fonts';
 
 import stylesGeral from '~/styles';
 //import styles from './styles';
-import {getEstoqueVeiculos} from '~/servicos/auth';
+import {getEstoqueVeiculos, getCustosVeiculoSimulacao} from '~/servicos/auth';
 //import Touchable from 'react-native-platform-touchable';
 import Button from '~/componentes/tela/Button';
 
@@ -19,7 +20,95 @@ import Slider from '~/componentes/carousel/Slider'
 import ImageElement from '~/componentes/carousel/ImageElement'
 import { TouchableHighlight } from 'react-native';
 import TextInput from '~/componentes/tela/TextInput';
+import PropostaCustosEstoque from '../../../componentes/propostacomponentes/PropostaCustosEstoque';
 
+
+const ModalPoup = ({osParam, visible, children}) => {
+
+  const styles = StyleSheet.create({
+    container: { 
+      flex: 1, 
+      padding: 16, 
+      paddingTop: 30, 
+      backgroundColor: '#ffffff' 
+    },
+    head: { 
+      height: 50, 
+      backgroundColor: '#fff' 
+    },
+    text: { 
+      textAlign: 'center', 
+      fontWeight: '200' 
+    },
+    dataWrapper: { 
+      marginTop: -1 
+    },
+    row: { 
+      height: 40, 
+      backgroundColor: '#F7F8FA' 
+    },
+    ico: { 
+     justifyContent: "center",
+     alignItems: "center",
+    },
+    modalBackGround: {
+      flex: 1,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    modalContainer: {
+      width: '90%',
+      height: '90%',
+      backgroundColor: 'white',
+      paddingHorizontal: 20,
+      paddingVertical: 30,
+      borderRadius: 20,
+      elevation: 20,
+    },
+    header: {
+      width: '100%',
+      height: 40,
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+    },
+  });
+    const [os, setOs] = useState(osParam);
+    const [showModal, setShowModal] = useState(visible);
+    const scaleValue = useRef(new Animated.Value(0)).current;
+    useEffect(() => {
+      toggleModal();
+    }, [visible]);
+    const toggleModal = () => {
+      if (visible) {
+        setShowModal(true);
+        Animated.spring(scaleValue, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      } else {
+        setTimeout(() => setShowModal(false), 200);
+        Animated.timing(scaleValue, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      }
+    };
+    return (
+      <Modal transparent visible={showModal}> 
+        <View style={styles.modalBackGround}>
+        <Animated.View
+            style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
+            {children}
+          </Animated.View>
+        </View>
+      </Modal>
+    );
+  };
+
+  
 const EstoqueCadastro = props => {
   const TempoRefresh = Global.TEMPO_REFRESH;
   const [loading, setLoading] = useState(false);
@@ -28,6 +117,26 @@ const EstoqueCadastro = props => {
   const [Veiculo, setVeiculo] = useState({});
   const [Veiculo_Opcionais, setVeiculo_Opcionais] = useState([]);
   const [Veiculo_Imagens, setVeiculo_Imagens] = useState([]);
+
+  const [visible, setVisible] = useState(false);
+
+  const [viewModal, setviewModal] = useState(false);
+  
+  const [osData, setOsData] = useState({});
+  
+  const [PropostaD, setPropostaD] = useState({});
+  const [Parcelas, setParcelas] = useState([]);
+  const [ServicosAdicionais, setServicosAdicionais] = useState([]);
+  const [Custos, setCustos] = useState([]);
+  const [ValoresAgregados, setValoresAgregados] = useState([]);
+  const [OSs, setOSs] = useState([]);
+  const [TotalAgregado, setTotalAgregado] = useState([]);
+
+
+  toggleModal = () => {
+    setVisible(!visible)
+  };
+
 
   useEffect(() => {
     carregarEstoque();
@@ -118,8 +227,15 @@ const [modalImage, setModalImage] = useState(null);
       width: '100%',
       height: '100%',
     },
+    header: {
+      width: '100%',
+      height: 40,
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+    },
 
   });
+
 
 function toggle(){
   console.log('toggle')
@@ -182,6 +298,7 @@ function ImagePress(val){
   }
 
   async function _onSimulacaoPressed() {
+    setLoading(false);
     Keyboard.dismiss();
     console.log('valor veiculo')
     console.log(Veiculo.Veiculo_Preco)
@@ -193,6 +310,13 @@ function ImagePress(val){
       '@Veiculo_Codigo_Reserva',
       Veiculo.Veiculo_Codigo.toString(),
     );
+
+    getCustosVeiculoSimulacaoGet();
+
+
+    toggleModal();
+
+
    // props.navigation.navigate('ReservaVeiculos');
   }
 
@@ -207,6 +331,83 @@ function ImagePress(val){
     props.navigation.navigate('PropostaVeiculos');
   }
 
+  const formatarTotalAgregado = function(valor) 
+  {
+    if (parseFloat(valor, 10) > 0)
+      return '(+) ' + valor
+    if (parseFloat(valor, 10) < 0)
+      return '(-) ' + valor.replace('-', '')
+
+    return ''+valor    
+  }
+
+  const getCustosVeiculoSimulacaoGet = async function() 
+  {
+    setLoading(true);
+    let preco = parseFloat(Veiculo.Veiculo_Preco.replace('.','').replace(',', '.')) 
+    let data = await getCustosVeiculoSimulacao(
+      'C',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'D',//TipoConsulta, 
+      '',
+      preco,
+      Veiculo.Veiculo_Codigo 
+      );
+     
+      //setLoading(false);
+
+      data.forEach(function(propostas) {
+        propostas.Proposta.forEach(function(proposta) {
+          PropostasAux = proposta
+        })
+      });
+
+      if (!PropostasAux){
+        setLoading(false);
+        Alert.alert('Informação', 'Consulta não retornou dados.');
+        return
+      }
+
+      if (PropostasAux)
+        setPropostaD(PropostasAux)
+
+      if (PropostasAux.Custos)
+      {
+        setCustos(PropostasAux.Custos.Custo)
+    
+        PropostasAux.Custos.Custo.forEach(function(item) 
+        {
+          if (item.Custo_Descricao == "Valor Agregado")
+          {
+            setTotalAgregado(formatarTotalAgregado(item.Custo_Valor))
+          }
+        })
+      }
+      if (PropostasAux.ValoresAgregados)
+        setValoresAgregados(PropostasAux.ValoresAgregados.ValorAgregado)
+     
+      setLoading(false)
+     
+      //return PropostasAux
+
+
+      console.log('valores retornados')
+      console.log(JSON.stringify(PropostaD))
+      console.log('valores retornados2')
+      console.log(JSON.stringify(Custos))
+      console.log('valores retornados3')
+      console.log(JSON.stringify(ValoresAgregados))
+      console.log('valores retornados4')
+      console.log(JSON.stringify(TotalAgregado))
+     
+      return PropostasAux
+  }
+
   return (
     <Container
       scroll={true}
@@ -216,6 +417,19 @@ function ImagePress(val){
       exibirHeader={true}
       exibirFiltro={false}>
        
+       <ModalPoup  visible={visible}>
+        <View style={{alignItems: 'center'}}>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => setVisible(false)}>
+            <Text >[X]</Text>
+            </TouchableOpacity>
+          </View>
+          <PropostaCustosEstoque Custos={Custos} PropostaD={PropostaD}/>
+        </View>
+      
+      </ModalPoup>
+
+
       <View style={{...styles.cardPreco}}>
         <Text style={{...styles.cardPrecoItem, fontSize: fonts.tipo5, fontWeight: 'bold'}}>
           {Veiculo.Veiculo_Preco ? 'R$ ' + Veiculo.Veiculo_Preco : <></>}
