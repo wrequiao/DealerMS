@@ -378,6 +378,12 @@ function ImagePress(val){
 
       if (PropostasAux.Custos)
       {
+
+       
+        PropostasAux.Custos.Custo.unshift({
+          "Custo_Descricao":"Valor Presente",
+          "Custo_Valor": PropostasAux.Proposta_ValorPresente
+       })
         setCustos(PropostasAux.Custos.Custo)
     
         PropostasAux.Custos.Custo.forEach(function(item) 

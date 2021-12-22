@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect, memo} from 'react';
 import {View, Image, ScrollView, Dimensions, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import TextInput from '~/componentes/tela/TextInput';
 
 const {width} = Dimensions.get("window");
 const height = width * 0.6
 //const { width, height } = Dimensions.get('window')
-
+const [ValorSimulacaoNew, setValorSimulacaoNew] = useState(0);
 
 export default class PropostaCustosEstoque extends React.Component{
    
@@ -19,14 +19,15 @@ export default class PropostaCustosEstoque extends React.Component{
                 <View>
                     <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
                     <TextInput
-                        label="Valor venda"
+                        label="Valor da Simulação"
                         styleContainer={{...stylesGeral.ContainerIpunts, width: '50%'}}
                         styleInput={{height: 45}}
                         returnKeyType="next"
                         value={'R$ ' + this.props.PropostaD.Proposta_Valor}
+                        onChangeText={text => setValorSimulacaoNew(text)}
                     />
                     <TextInput
-                        label="Custo"
+                        label="Total Custo"
                         styleContainer={{...stylesGeral.ContainerIpunts, width: '50%'}}
                         styleInput={{height: 45}}
                         returnKeyType="next"
@@ -36,7 +37,7 @@ export default class PropostaCustosEstoque extends React.Component{
 
                     <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
                     <TextInput
-                        label="Lucro gerencial"
+                        label="Resultado"
                         styleContainer={{...stylesGeral.ContainerIpunts, width: '60%'}}
                         styleInput={{height: 45}}
                         returnKeyType="next"
