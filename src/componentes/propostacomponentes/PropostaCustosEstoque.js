@@ -7,6 +7,15 @@ import {getEstoqueVeiculos, getCustosVeiculoSimulacao} from '~/servicos/auth';
 const {width} = Dimensions.get("window");
 const height = width * 0.6
 
+const formatarTotalAgregado = function(valor) 
+  {
+    if (parseFloat(valor, 10) > 0)
+      return '(+) ' + valor
+    if (parseFloat(valor, 10) < 0)
+      return '(-) ' + valor.replace('-', '')
+
+    return ''+valor    
+  }
 
 const PropostaCustosEstoque = props => {
     const [ValorSimulacaoNew, setValorSimulacaoNew] = useState(props.PropostaD.Proposta_Valor);
@@ -14,7 +23,10 @@ const PropostaCustosEstoque = props => {
     const [Custos, setCustos] = useState([]);
     const [Veiculo_Codigo, setVeiculo_Codigo] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [TotalAgregado, setTotalAgregado] = useState([]);
+    const [ValoresAgregados, setValoresAgregados] = useState([]);
   
+
     const [inicioUseEffect, setinicioUseEffect] = useState(true);
   
     useEffect(() => {
@@ -37,7 +49,9 @@ const PropostaCustosEstoque = props => {
 
 
 async function _onCalcularPressed() {
-    console.log('clickou')
+    console.log('clickou2')
+    console.log(ValorSimulacaoNew)
+    await getCustosVeiculoSimulacaoGet()
 }
 
 
@@ -56,7 +70,7 @@ async function _onCalcularPressed() {
             'D',//TipoConsulta, 
             '',
             preco,
-            Veiculo_Codigo 
+            props.Veiculo_Codigo 
             );
            
             //setLoading(false);
@@ -74,7 +88,7 @@ async function _onCalcularPressed() {
             }
       
             if (PropostasAux)
-            this.props.PropostaD = PropostasAux
+            setPropostaD(PropostasAux)
       
             if (PropostasAux.Custos)
             {
@@ -84,7 +98,7 @@ async function _onCalcularPressed() {
                 "Custo_Descricao":"Valor Presente",
                 "Custo_Valor": PropostasAux.Proposta_ValorPresente
              })
-             this.props.Custos = PropostasAux.Custos.Custo
+             setCustos(PropostasAux.Custos.Custo)
           
               PropostasAux.Custos.Custo.forEach(function(item) 
               {
