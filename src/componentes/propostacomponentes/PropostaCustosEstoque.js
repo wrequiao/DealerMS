@@ -19,8 +19,8 @@ const formatarTotalAgregado = function(valor)
 
 const PropostaCustosEstoque = props => {
     const [ValorSimulacaoNew, setValorSimulacaoNew] = useState(props.PropostaD.Proposta_Valor);
-    const [PropostaD, setPropostaD] = useState({});
-    const [Custos, setCustos] = useState([]);
+    const [PropostaD, setPropostaD] = useState(props.PropostaD);
+    const [Custos, setCustos] = useState(props.Custos);
     const [Veiculo_Codigo, setVeiculo_Codigo] = useState(0);
     const [loading, setLoading] = useState(false);
     const [TotalAgregado, setTotalAgregado] = useState([]);
@@ -34,7 +34,7 @@ const PropostaCustosEstoque = props => {
         console.log(JSON.stringify(PropostaD))
         console.log('valor')
         setValorSimulacaoNew(props.PropostaD.Proposta_Valor)
-         getCustosVeiculoSimulacaoGet();
+        //getCustosVeiculoSimulacaoGet();
       }, [inicioUseEffect]);
   
     const style = StyleSheet.create({
@@ -51,13 +51,16 @@ const PropostaCustosEstoque = props => {
 async function _onCalcularPressed() {
     console.log('clickou2')
     console.log(ValorSimulacaoNew)
+    setLoading(true);
     await getCustosVeiculoSimulacaoGet()
+    setLoading(false);
+    
 }
 
 
         const getCustosVeiculoSimulacaoGet = async function() 
         {
-          setLoading(true);
+          
           let preco = parseFloat(ValorSimulacaoNew.replace('.','').replace(',', '.')) 
           let data = await getCustosVeiculoSimulacao(
             'C',
@@ -110,19 +113,21 @@ async function _onCalcularPressed() {
             }
             if (PropostasAux.ValoresAgregados)
               setValoresAgregados(PropostasAux.ValoresAgregados.ValorAgregado)
-           
-            setLoading(false)
+
            
             //return PropostasAux
       
-      
-            console.log('valores retornados')
+           // props.PropostaD = PropostaD
+            console.log('valores retornadoscustos')
             console.log(JSON.stringify(PropostaD))
-            console.log('valores retornados2')
+            console.log('valores retornadoscustosprops')
+            console.log(JSON.stringify(props.PropostaD))
+
+            console.log('valores retornados2custos')
             console.log(JSON.stringify(Custos))
-            console.log('valores retornados3')
+            console.log('valores retornados3custos')
             console.log(JSON.stringify(ValoresAgregados))
-            console.log('valores retornados4')
+            console.log('valores retornados4custos')
             console.log(JSON.stringify(TotalAgregado))
            
             return PropostasAux
@@ -150,7 +155,7 @@ async function _onCalcularPressed() {
                         styleContainer={{...stylesGeral.ContainerIpunts, width: '50%'}}
                         styleInput={{height: 45}}
                         returnKeyType="next"
-                        value={'R$ ' + props.PropostaD.Proposta_CustoTotal}
+                        value={'R$ ' + PropostaD.Proposta_CustoTotal}
                     />
                     </View>
 
@@ -160,14 +165,14 @@ async function _onCalcularPressed() {
                         styleContainer={{...stylesGeral.ContainerIpunts, width: '60%'}}
                         styleInput={{height: 45}}
                         returnKeyType="next"
-                        value={'R$ ' + props.PropostaD.Proposta_Margem}
+                        value={'R$ ' + PropostaD.Proposta_Margem}
                     />
                     <TextInput
                         label="%"
                         styleContainer={{...stylesGeral.ContainerIpunts, width: '40%'}}
                         styleInput={{height: 45}}
                         returnKeyType="next"
-                        value={props.PropostaD.Proposta_PercMargem + '%'}
+                        value={PropostaD.Proposta_PercMargem + '%'}
                     />
                     </View>
                 </View>
@@ -188,7 +193,7 @@ async function _onCalcularPressed() {
                     </Text> 
                 </View>
                 
-                {props.Custos ? props.Custos.map(custo => {
+                {Custos ? Custos.map(custo => {
                         return (
                         <View>
                             <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>

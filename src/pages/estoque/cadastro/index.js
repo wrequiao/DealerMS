@@ -298,7 +298,7 @@ function ImagePress(val){
   }
 
   async function _onSimulacaoPressed() {
-    setLoading(false);
+    setLoading(true);
     Keyboard.dismiss();
     console.log('valor veiculo')
     console.log(Veiculo.Veiculo_Preco)
@@ -312,7 +312,8 @@ function ImagePress(val){
     );
 
     getCustosVeiculoSimulacaoGet();
-
+    setLoading(false);
+    
 
     toggleModal();
 
