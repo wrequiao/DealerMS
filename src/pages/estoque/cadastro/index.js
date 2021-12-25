@@ -430,7 +430,7 @@ function ImagePress(val){
             <Text >[X]</Text>
             </TouchableOpacity>
           </View>
-          <PropostaCustosEstoque Custos={Custos} PropostaD={PropostaD}/>
+          <PropostaCustosEstoque Custos={Custos} PropostaD={PropostaD} Veiculo_Codigo={Veiculo.Veiculo_Codigo}/>
         </View>
       
       </ModalPoup>
