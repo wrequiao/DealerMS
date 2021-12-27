@@ -3,7 +3,7 @@ import {View, Image, ScrollView, Dimensions, Text, StyleSheet, TouchableHighligh
 import TextInput from '~/componentes/tela/TextInput';
 import Button from '~/componentes/tela/Button';
 import {getEstoqueVeiculos, getCustosVeiculoSimulacao} from '~/servicos/auth';
-
+import Loader from '~/componentes/loading/Loader';
 const {width} = Dimensions.get("window");
 const height = width * 0.6
 
@@ -18,7 +18,7 @@ const formatarTotalAgregado = function(valor)
   }
 
 const PropostaCustosEstoque = props => {
-    const [ValorSimulacaoNew, setValorSimulacaoNew] = useState(props.PropostaD.Proposta_Valor);
+    const [ValorSimulacaoNew, setValorSimulacaoNew] = useState(props.Veiculo_Preco);
     const [PropostaD, setPropostaD] = useState(props.PropostaD);
     const [Custos, setCustos] = useState(props.Custos);
     const [Veiculo_Codigo, setVeiculo_Codigo] = useState(0);
@@ -30,11 +30,6 @@ const PropostaCustosEstoque = props => {
     const [inicioUseEffect, setinicioUseEffect] = useState(true);
   
     useEffect(() => {
-        console.log('entrando na pagina modal')
-        console.log(JSON.stringify(PropostaD))
-        console.log('valor')
-        setValorSimulacaoNew(props.PropostaD.Proposta_Valor)
-        //getCustosVeiculoSimulacaoGet();
       }, [inicioUseEffect]);
   
     const style = StyleSheet.create({
@@ -49,89 +44,69 @@ const PropostaCustosEstoque = props => {
 
 
 async function _onCalcularPressed() {
-    console.log('clickou2')
-    console.log(ValorSimulacaoNew)
-    setLoading(true);
     await getCustosVeiculoSimulacaoGet()
-    setLoading(false);
-    
 }
 
+const getCustosVeiculoSimulacaoGet = async function() 
+{
+    setLoading(true);
+    
+    let preco = parseFloat(ValorSimulacaoNew ? ValorSimulacaoNew.replace('.','').replace(',', '.') : props.PropostaD.Proposta_Valor.replace('.','').replace(',', '.')) 
 
-        const getCustosVeiculoSimulacaoGet = async function() 
+    let data = await getCustosVeiculoSimulacao(
+    'C',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'D',//TipoConsulta, 
+    '',
+    preco,
+    props.Veiculo_Codigo 
+    );
+    
+    //setLoading(false);
+
+    data.forEach(function(propostas) {
+        propostas.Proposta.forEach(function(proposta) {
+        PropostasAux = proposta
+        })
+    });
+
+    if (!PropostasAux){
+        setLoading(false);
+        Alert.alert('Informação', 'Consulta não retornou dados.');
+        return
+    }
+
+    if (PropostasAux)
+        setPropostaD(PropostasAux)
+
+    if (PropostasAux.Custos)
+    { 
+        PropostasAux.Custos.Custo.unshift({
+        "Custo_Descricao":"Valor Presente",
+        "Custo_Valor": PropostasAux.Proposta_ValorPresente
+        })
+        setCustos(PropostasAux.Custos.Custo)
+    
+        PropostasAux.Custos.Custo.forEach(function(item) 
         {
-          
-          let preco = parseFloat(ValorSimulacaoNew.replace('.','').replace(',', '.')) 
-          let data = await getCustosVeiculoSimulacao(
-            'C',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            'D',//TipoConsulta, 
-            '',
-            preco,
-            props.Veiculo_Codigo 
-            );
-           
-            //setLoading(false);
-      
-            data.forEach(function(propostas) {
-              propostas.Proposta.forEach(function(proposta) {
-                PropostasAux = proposta
-              })
-            });
-      
-            if (!PropostasAux){
-              setLoading(false);
-              Alert.alert('Informação', 'Consulta não retornou dados.');
-              return
-            }
-      
-            if (PropostasAux)
-            setPropostaD(PropostasAux)
-      
-            if (PropostasAux.Custos)
-            {
-      
-             
-              PropostasAux.Custos.Custo.unshift({
-                "Custo_Descricao":"Valor Presente",
-                "Custo_Valor": PropostasAux.Proposta_ValorPresente
-             })
-             setCustos(PropostasAux.Custos.Custo)
-          
-              PropostasAux.Custos.Custo.forEach(function(item) 
-              {
-                if (item.Custo_Descricao == "Valor Agregado")
-                {
-                  setTotalAgregado(formatarTotalAgregado(item.Custo_Valor))
-                }
-              })
-            }
-            if (PropostasAux.ValoresAgregados)
-              setValoresAgregados(PropostasAux.ValoresAgregados.ValorAgregado)
-
-           
-            //return PropostasAux
-      
-           // props.PropostaD = PropostaD
-            console.log('valores retornadoscustos')
-            console.log(JSON.stringify(PropostaD))
-            console.log('valores retornadoscustosprops')
-            console.log(JSON.stringify(props.PropostaD))
-
-            console.log('valores retornados2custos')
-            console.log(JSON.stringify(Custos))
-            console.log('valores retornados3custos')
-            console.log(JSON.stringify(ValoresAgregados))
-            console.log('valores retornados4custos')
-            console.log(JSON.stringify(TotalAgregado))
-           
-            return PropostasAux
+        if (item.Custo_Descricao == "Valor Agregado")
+        {
+            setTotalAgregado(formatarTotalAgregado(item.Custo_Valor))
         }
+        })
+    }
+
+    if (PropostasAux.ValoresAgregados)
+        setValoresAgregados(PropostasAux.ValoresAgregados.ValorAgregado)
+
+    setLoading(false); 
+    return PropostasAux
+}
 
 
         return(
@@ -139,6 +114,7 @@ async function _onCalcularPressed() {
             <ScrollView pagingEnabled 
                 onScroll={this.change}
                 showsHorizontalScrollIndicator={true}>
+                <Loader loading={loading}  />
                 <View>
                 <View>
                     <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>

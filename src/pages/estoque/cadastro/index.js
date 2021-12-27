@@ -243,7 +243,6 @@ function toggle(){
 };
 
 function ImagePress(val){
-  console.log('imagepress')
   setModalImage(val);
   toggle();
 }
@@ -259,9 +258,6 @@ function ImagePress(val){
     let PesquisarImagemCheck = await AsyncStorage.getItem(
       '@PesquisarImagemCheck',
     );
-
-    console.log('PesquisarImagemCheck')
-    console.log(PesquisarImagemCheck)
 
     let Retorno = await getEstoqueVeiculos(null, VeiculoCodigoAux, true, true);
     //console.log('\n', Retorno);
@@ -300,25 +296,13 @@ function ImagePress(val){
   async function _onSimulacaoPressed() {
     setLoading(true);
     Keyboard.dismiss();
-    console.log('valor veiculo')
-    console.log(Veiculo.Veiculo_Preco)
-
-    console.log('codigo veiculo')
-    console.log(Veiculo.Veiculo_Codigo)
-
     await AsyncStorage.setItem(
       '@Veiculo_Codigo_Reserva',
       Veiculo.Veiculo_Codigo.toString(),
     );
-
-    getCustosVeiculoSimulacaoGet();
+    await getCustosVeiculoSimulacaoGet();
     setLoading(false);
-    
-
     toggleModal();
-
-
-   // props.navigation.navigate('ReservaVeiculos');
   }
 
   async function _ontenhoInteressePressed() {
@@ -379,8 +363,6 @@ function ImagePress(val){
 
       if (PropostasAux.Custos)
       {
-
-       
         PropostasAux.Custos.Custo.unshift({
           "Custo_Descricao":"Valor Presente",
           "Custo_Valor": PropostasAux.Proposta_ValorPresente
@@ -399,18 +381,6 @@ function ImagePress(val){
         setValoresAgregados(PropostasAux.ValoresAgregados.ValorAgregado)
      
       setLoading(false)
-     
-      //return PropostasAux
-
-
-      console.log('valores retornados')
-      console.log(JSON.stringify(PropostaD))
-      console.log('valores retornados2')
-      console.log(JSON.stringify(Custos))
-      console.log('valores retornados3')
-      console.log(JSON.stringify(ValoresAgregados))
-      console.log('valores retornados4')
-      console.log(JSON.stringify(TotalAgregado))
      
       return PropostasAux
   }
@@ -431,7 +401,7 @@ function ImagePress(val){
             <Text >[X]</Text>
             </TouchableOpacity>
           </View>
-          <PropostaCustosEstoque Custos={Custos} PropostaD={PropostaD} Veiculo_Codigo={Veiculo.Veiculo_Codigo}/>
+          <PropostaCustosEstoque Custos={Custos} PropostaD={PropostaD} Veiculo_Codigo={Veiculo.Veiculo_Codigo} Veiculo_Preco={Veiculo.Veiculo_Preco}/>
         </View>
       
       </ModalPoup>

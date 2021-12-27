@@ -945,8 +945,6 @@ export const getPropostaFluxos = async (
 };
 
 
-
-
 export const getCustosVeiculoSimulacao = async (
   TipoData,
   DtIni,
@@ -961,10 +959,7 @@ export const getCustosVeiculoSimulacao = async (
   Veiculo_Simulacao,
 ) => {
   
-  console.log('call 00') 
   let DadosUsuario = await getUsuario();
-
-  console.log('call 01') 
 
   let Data = getCustosVeiculosSimulacaoXMLSOAP()
     .replace(/{USUARIO}/g, DadosUsuario.Login)
@@ -982,36 +977,20 @@ export const getCustosVeiculoSimulacao = async (
     .replace(/{VALOR_SIMULACAO}/g, Valor_Simulacao)
     .replace(/{VEICULO_SIMULACAO}/g, Veiculo_Simulacao)
     
- //if (MOSTRAR_DATA_ENVIO) {
-  console.log('call 02 data') 
+ if (MOSTRAR_DATA_ENVIO) {
     console.log(Data);
-  //}
-  console.log('call 02') 
+  }
 
   let XMLResposta = await executarAPIServico(Data);
-  console.log('call 03') 
-  console.log(XMLResposta) 
 
   let RetornoCod = XMLResposta.getElementsByTagName('RetornoCod')[0];
-  console.log('call 04') 
-  console.log(RetornoCod) 
 
   let ValorRetorno = RetornoCod ? RetornoCod.value == 1 : false;
-  console.log('call 05') 
-  console.log(ValorRetorno) 
 
   if (ValorRetorno) {
-    //let MidiasXML = XMLResposta.getElementsByTagName('Propostas');
-    //console.log('MidiasXML detalhes')
-    //console.log(MidiasXML)
-    console.log('call 06') 
 
     let propostaXML = XMLResposta.getElementsByTagName('XMLRetorno')[0];
-    console.log('propostas detalhes com codigo data2 simulacao propostaXML') 
-    console.log(propostaXML.value)
     let data = JSON.parse(propostaXML.value)
-    console.log('propostas detalhes com codigo data3 simulacao') 
-    console.log(JSON.stringify(data.Propostas))
     return data.Propostas;
 
   } else {
