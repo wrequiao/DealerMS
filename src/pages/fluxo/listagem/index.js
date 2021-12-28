@@ -65,7 +65,6 @@ const FluxoListagem = props => {
   const carregarComboEmpresas = async () => {
     
     setLoading(true);
-    setRefreshing(true);
     let EmpresasUsuario = await getEmpresasUsuario();
     let EmpresaSelecionadaAux = await getEmpresasUsuarioSelecionada();
 
@@ -74,9 +73,18 @@ const FluxoListagem = props => {
     setEmpresaSelecionada(EmpresaSelecionadaAux);
 
     setLoading(false);
-    setRefreshing(false);
+    
 
   };
+
+  async function refreshList() {
+    setRefreshing(true);
+
+    await carregarFluxos();
+
+    setRefreshing(false);
+  }
+
 
   const __onEmpresasChange = async itemValue => {
     //setRefreshing(true);
@@ -273,6 +281,7 @@ const FluxoListagem = props => {
             </View>
           </Touchable>
         </View>
+      
 
         <View
           style={{
