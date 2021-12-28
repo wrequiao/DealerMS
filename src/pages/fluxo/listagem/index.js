@@ -25,7 +25,7 @@ import pickerSelectStyles from '~/assets/styles/pickerStyle';
 import RNPickerSelect from 'react-native-picker-select';
 import {Chevron} from 'react-native-shapes';
 import Button from '~/componentes/tela/Button';
-
+import Loader from '~/componentes/loading/Loader';
 import stylesGeral from '~/styles';
 
 
@@ -57,13 +57,15 @@ const FluxoListagem = props => {
   const [empresaSelecionada, setEmpresaSelecionada] = useState(0);
 
   useEffect(() => {
-    //setLoading(true);
-    carregarComboEmpresas();
-    carregarFluxos();
+   
+     carregarComboEmpresas();
+     carregarFluxos();
   }, [inicioUseEffect]);
 
   const carregarComboEmpresas = async () => {
+    
     setLoading(true);
+    setRefreshing(true);
     let EmpresasUsuario = await getEmpresasUsuario();
     let EmpresaSelecionadaAux = await getEmpresasUsuarioSelecionada();
 
@@ -72,6 +74,7 @@ const FluxoListagem = props => {
     setEmpresaSelecionada(EmpresaSelecionadaAux);
 
     setLoading(false);
+    setRefreshing(false);
 
   };
 
@@ -100,11 +103,30 @@ const FluxoListagem = props => {
       paddingVertical: 7,
       paddingBottom: 0,
     },
+    modalBackGround: {
+      flex: 1,
+      //backgroundColor: 'rgba(0,0,0,0.5)',
+      backgroundColor: theme.colors.primary,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    modalContainer: {
+      width: '90%',
+      height: '40%',
+      backgroundColor: 'white',
+      paddingHorizontal: 20,
+      paddingVertical: 30,
+      borderRadius: 20,
+      elevation: 20,
+    },
+    
   });
 
   async function carregarFluxos(Page) {
     if (loading) return;
+    
     setLoading(true);
+    setRefreshing(true);
 
     let data = await getPropostaFluxos('C','','','','','','','F','');
 
@@ -117,12 +139,14 @@ const FluxoListagem = props => {
       
     if (!FluxosAux){
         setLoading(false);
+        setRefreshing(false);
         Alert.alert('Informação', 'Consulta não retornou dados.');
         return
     }
 
     setFluxos(FluxosAux.Fluxo_Proposta);
     setLoading(false);
+    setRefreshing(false);
   }
 
   async function refreshList() {
@@ -152,13 +176,16 @@ const FluxoListagem = props => {
   const FluxoView = Fluxo => {
     //console.log('\n', Atendimento);
     return (
+  
       <View style={styles.viewContainerItemFlatList}>
+         
         <View
           style={{
             flexDirection: 'row',
             paddingVertical: 8,
             width: '100%',
           }}>
+           
           <Touchable
             style={{
               flexDirection: 'row',
@@ -269,6 +296,7 @@ const FluxoListagem = props => {
           </Touchable>
         </View>
       </View>
+     
     );
   };
 
@@ -309,7 +337,7 @@ const FluxoListagem = props => {
 
       <Modal
         visible={MostrarFiltro}
-        contentContainerStyle={stylesGeral.Modal}
+        contentContainerStyle={styles.modalBackGround}
         loading={loading || refreshing}
         //onRequestClose={() => {}}
       >
