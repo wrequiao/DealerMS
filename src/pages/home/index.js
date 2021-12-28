@@ -171,10 +171,10 @@ const Home = props => {
           style={{flexDirection: 'row', padding: 10}}
           hitSlop={{top: 3, bottom: 3, left: 3, right: 3}}
           activeOpacity={0.5}
-          onPress={_onReservasPress}>
+          onPress={_onPropostaPress}>
           <Image
             style={{width: wp(40), height: wp(40), paddingTop: 5}}
-            source={require('~/assets/reservas.jpeg')}
+            source={require('~/assets/proposta3.png')}
           />
         </Touchable>
 
@@ -189,27 +189,6 @@ const Home = props => {
           />
         </Touchable>
       </View>
-
-      <View
-        style={{
-          ...styles.view,
-          alignContent: 'center',
-          alignSelf: 'center',
-          alignItems: 'center',
-        }}>
-        <Touchable
-          style={{flexDirection: 'row', padding: 10}}
-          hitSlop={{top: 3, bottom: 3, left: 3, right: 3}}
-          activeOpacity={0.5}
-          onPress={_onPropostaPress}>
-          <Image
-            style={{width: wp(40), height: wp(40), paddingTop: 5}}
-            source={require('~/assets/proposta3.png')}
-          />
-        </Touchable>
-
-      </View>
-
 
       {false && (
         <View style={styles.view}>
