@@ -138,15 +138,15 @@ const getCustosVeiculoSimulacaoGet = async function()
                     <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
                     <TextInput
                         label="Resultado"
-                        styleContainer={{...stylesGeral.ContainerIpunts, width: '60%'}}
-                        styleInput={{height: 45}}
+                        styleContainer={{...stylesGeral.ContainerIpunts, width: '60%' }}
+                        styleInput={{height: 45, backgroundColor: PropostaD.Proposta_Margem.includes("-") ? "#FF0000" : "#fff",}}
                         returnKeyType="next"
                         value={'R$ ' + PropostaD.Proposta_Margem}
                     />
                     <TextInput
                         label="%"
                         styleContainer={{...stylesGeral.ContainerIpunts, width: '40%'}}
-                        styleInput={{height: 45}}
+                        styleInput={{height: 45, backgroundColor: PropostaD.Proposta_Margem.includes("-") ? "#FF0000" : "#fff",}}
                         returnKeyType="next"
                         value={PropostaD.Proposta_PercMargem + '%'}
                     />
