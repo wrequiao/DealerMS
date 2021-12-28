@@ -261,7 +261,8 @@ console.log(pedido)
               <View>
                     <Image
                       style={styles.viewItemFlatListImageNull}
-                      source={require('~/assets/carro_estoque.png')}
+                      //source={require('~/assets/carro_estoque.png')}
+                      source={require('~/assets/propostaico.png')}
                     />
               </View>
 

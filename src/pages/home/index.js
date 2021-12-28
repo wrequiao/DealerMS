@@ -204,7 +204,7 @@ const Home = props => {
           onPress={_onPropostaPress}>
           <Image
             style={{width: wp(40), height: wp(40), paddingTop: 5}}
-            source={require('~/assets/fluxos.jpeg')}
+            source={require('~/assets/proposta3.png')}
           />
         </Touchable>
 
