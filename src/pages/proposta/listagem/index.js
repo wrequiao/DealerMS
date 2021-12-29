@@ -32,6 +32,8 @@ import {
   ajustarFormatoDadosCombo,
 } from '~/core/utils';
 import {TextInputMask} from 'react-native-masked-text';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 //import DatePicker from 'react-native-date-picker'
 
 const PropostaListagem = props => {
@@ -141,7 +143,7 @@ const PropostaListagem = props => {
 async function carregarProposta(Page = 1) {
 if (loading) return;
 setLoading(true);
-   
+/*   
 console.log('debugando call propostas veiculos')
 console.log('radioButtons')
 console.log(radioButtons.id)
@@ -157,19 +159,56 @@ console.log('proposta')
 console.log(proposta)
 console.log('pedido')
 console.log(pedido)
+//.locale('pt-br')
+//let di = DataInicial.value
+//let df = DataFinal.value
+*/
+let fromi =  ''//null//DataInicial.value.split("/")
+let fromf =  ''//null//DataFinal.value.split("/")
+let di = ''//null
+let df = ''//null
 
 
+
+
+if (DataInicial.value)
+{
+  if (DataInicial.value.length == 10)
+  {
+    fromi =  DataInicial.value.split("/")
+    di = fromi[2] + '-' + fromi[1]  + '-' + fromi[0]
+  }
+}
+
+if (DataFinal.value)
+{
+  if (DataFinal.value.length == 10)
+  {
+    fromf =  DataFinal.value.split("/")
+    df = fromf[2] + '-' + fromf[1]  + '-' + fromf[0]
+  }
+}
+
+console.log('fromdateixxx')
+
+ // let di = DataInicial.value ? moment(DataInicial.value, "YYYY-MM-DD") : null
+  //let df = DataFinal.value ? moment(DataFinal.value, "YYYY-MM-DD").locale('pt-br') : null
+
+  console.log("dii");
+  console.log(di);
+  console.log("dff");
+  console.log(df);
 
     let data = await getPropostaVeiculos(
     radioButtons.id == 1 ? 'A' : radioButtons.id == 2 ? 'C' : 'D', //tipo data
-    '2021-11-01',//DataInicial.value,
-    '2021-11-17',//DataFinal.value,
+    di,//'2021-11-01',
+    df,//'2021-11-17',
     AtendimentoSelecionado.value,
     chassiPlaca,
     proposta,
     pedido == null ? '' : pedido ? pedido : '',
     'L',//TipoConsulta, 
-  ''
+    ''
     );
 
     let PropostasAux = []
@@ -199,28 +238,6 @@ console.log(pedido)
   }
 
   const filtrar = function() {
-    console.log('radio valor')
-    console.log(radioButtons)
-
-    console.log('dtini')
-    console.log(DataInicial)
-
-    console.log('dtfim')
-    console.log(DataFinal)
-
-    console.log('atendimento')
-    console.log(AtendimentoSelecionado)
-
-    console.log('chassiplaca')
-    console.log(chassiPlaca)
-
-
-    console.log('proposta')
-    console.log(proposta)
-
-    console.log('pedido')
-    console.log(pedido)
-
     setMostrarFiltro(false);
     carregarProposta();
     return true;
