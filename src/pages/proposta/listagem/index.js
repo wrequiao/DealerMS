@@ -415,18 +415,15 @@ console.log('fromdateixxx')
             ...stylesGeral.Modal,
             overflow: 'hidden',
             //top: 0,
-            height: '110%',
+            height: '200%',
           }}
           //onRequestClose={() => {}}
         >
           <View
             style={{
-              width: '90%',
-              flex: 1,
-              alignSelf: 'center',
-             // paddingVertical: 15,
-              marginTop: 10,
-              marginBottom: 10
+            //  width: '100%',
+             // flex: 1,
+             // marginLeft: 15,
             }}>
             <Text
               style={{
@@ -440,11 +437,12 @@ console.log('fromdateixxx')
            </View>
 
 
-           <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row', width: '90%',
-                alignSelf: 'center',
-                //paddingVertical: 5,
-                marginTop: -30
-                }}>
+           <View
+            style={{
+             // width: '100%',
+              //flex: 1,
+              alignItems: 'center',
+            }}>
             <RadioGroup
            // color = 'grey'
            // activeColor = 'blue'
@@ -459,36 +457,47 @@ console.log('fromdateixxx')
             />
    </View>
 
-  <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row', width: '90%',
-                alignSelf: 'center',
-                paddingVertical: 5,
-                marginTop: -30
-                }}>
+   <View
+            style={{
+             // width: '100%',
+              //flex: 1,
+              flexDirection: 'row',
+              //borderBottomWidth:5,
+              //borderColor: 'red',
+              //marginLeft: 10,
+              //marginRight: 50,
+              justifyContent: 'space-around',
+              alignSelf: 'stretch',
+              marginBottom: 5
+             // paddingVertical: 15,
+            }}>
+
          
           <TextInputMask
-            placeholder=" ___ / ___ / ___"
+            placeholder=" ____ / ____ / ____"
             type={'datetime'}
             autoFocus={true}
             options={{
               format: 'DD/MM/YYYY',
             }}
 
-            styleContainer={{...stylesGeral.ContainerIpunts, width: '50%', paddingRight: 30}}
-            styleInput={{height: 45}}
+
+
+           // styleInput={{height: 45}}
             
             style={{          
               ...stylesGeral.ContainerIpunts,
               //marginTop: 20,
               backgroundColor: 'white',
-              height: 45,
-              width: 160,
-              borderWidth: 1,
+              height: 40,
+              width: '45%',
+             // borderWidth: 1,
               //borderColor: 'grey',
               borderRadius: 3,
               fontSize: fonts.tipo2,
-              marginRight: 50,
-              marginLeft: 0,
-              padding: 10,
+              marginRight: 10,
+              marginLeft: 10,
+              //padding: 10,
             }}
             returnKeyType="next"
             value={DataInicial.value}
@@ -500,22 +509,25 @@ console.log('fromdateixxx')
          
      
           <TextInputMask
-             placeholder=" ___ / ___ / ___"
+             placeholder=" ____ / ____ / ____"
             type={'datetime'}
             options={{
               format: 'DD/MM/YYYY',
             }}
+
             style={{
               ...stylesGeral.ContainerIpunts,
               //marginTop: -50,
               backgroundColor: 'white',
-              height: 45,
-              width:160,
-              borderWidth: 1,
+              height: 40,
+              width:'45%',
+              //borderWidth: 1,
+              marginRight: 10,
+              marginLeft: 10,
               //borderColor: 'grey',
               borderRadius: 3,
               fontSize: fonts.tipo2,
-              padding: 10,
+             // padding: 10,
             }}
             returnKeyType="next"
             value={DataFinal.value}
@@ -526,12 +538,14 @@ console.log('fromdateixxx')
     </View>
 
 
-      <View
-        style={{
-          alignSelf: 'center',
-          width: '90%',
-          marginTop: 0,
-        }}>
+    <View
+            style={{
+              //width: '100%',
+              //flex: 1,
+             // paddingVertical: 15,
+             marginLeft: 10,
+             marginRight: 10,
+            }}>
         <RNPickerSelect
           placeholder={{
             label: 'Atendimento',
@@ -573,13 +587,14 @@ console.log('fromdateixxx')
       </View>
 
 
-            <View
-              style={{
-                width: '90%',
-                alignSelf: 'center',
-                paddingVertical: 5,
-                marginTop: 10,
-              }}>
+      <View
+            style={{
+             // width: '100%',
+             // flex: 1,
+              //paddingVertical: 15,
+              marginLeft: 10,
+             marginRight: 10,
+            }}>
               <TextInput
                 label="Chassi/Placa"
                 styleContainer={{
@@ -596,15 +611,21 @@ console.log('fromdateixxx')
                // textContentType="name"
                 //keyboardType="email-address"
               />
-            </View>
+      </View>
 
-        <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row', width: '90%',
-                alignSelf: 'center', paddingVertical: 5, 
-                marginTop: 10
-                }}>
+            <View
+            style={{
+              width: '100%',
+              //flex: 1,
+              flexDirection: 'row',
+              //marginLeft: 10,
+              //marginRight: 50,
+              justifyContent: 'space-around',
+             // paddingVertical: 15,
+            }}>
           <TextInput
             label="Proposta"
-            styleContainer={{...stylesGeral.ContainerIpunts, width: '50%', paddingRight: 30}}
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '45%',}}
             styleInput={{height: 45}}
             value={proposta}
             onChangeText={text => setProposta(text)}
@@ -612,7 +633,7 @@ console.log('fromdateixxx')
           />
           <TextInput
             label="Pedido"
-            styleContainer={{...stylesGeral.ContainerIpunts, width: '50%', paddingLeft: 30}}
+            styleContainer={{...stylesGeral.ContainerIpunts, width: '45%', }}
             styleInput={{height: 45}}
             value={pedido}
             onChangeText={text => setPedido(text)}
@@ -620,13 +641,14 @@ console.log('fromdateixxx')
           />   
       </View>
 
-            <View
-              style={{
-                width: '90%',
-                alignSelf: 'center',
-                paddingVertical: 5,
-                marginBottom:300
-              }}>
+      <View
+            style={{
+             // width: '100%',
+              flex: 1,
+              marginLeft: 10,
+              marginRight: 10,
+              //paddingVertical: 15,
+            }}>
                 <Button
                   mode="contained"
                   style={{borderWidth: 2, borderColor: 'white'}}

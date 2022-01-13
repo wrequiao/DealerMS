@@ -799,15 +799,12 @@ export const getPropostaVeiculos = async (
     .replace(/{TIPO_DATA}/g, TipoData)//TipoData.toString())
     .replace(/{DATA_INICIAL}/g, DtIni)
     .replace(/{DATA_FINAL}/g, DtFim)
-    
  if (MOSTRAR_DATA_ENVIO) {
     console.log(Data);
   }
-  
   let XMLResposta = await executarAPIServico(Data);
   let RetornoCod = XMLResposta.getElementsByTagName('RetornoCod')[0];
   let ValorRetorno = RetornoCod ? RetornoCod.value == 1 : false;
-  
   if (ValorRetorno) {
     let MidiasXML = XMLResposta.getElementsByTagName('Propostas');
     console.log(MidiasXML)

@@ -30,9 +30,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import moment from 'moment';
 
 //var ScrollableTabView = require('react-native-scrollable-tab-view');
-import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
+import  { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+var ScrollableTabView = require('react-native-scrollable-tab-view');
 
 const PropostaDetalhes = props => {
   const TempoRefresh = Global.TEMPO_REFRESH;
