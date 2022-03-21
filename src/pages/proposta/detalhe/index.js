@@ -1,6 +1,7 @@
 import React, {useState, useEffect, memo} from 'react';
 import {Modal, View, Text, StyleSheet, Image, Keyboard, TouchableOpacity, ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import RNPickerSelect from 'react-native-picker-select';
 
 import Container from '~/componentes/tela/Container';
 import Global from '~/config/Global';
@@ -25,14 +26,14 @@ import PropostaParcelas from '~/componentes/propostacomponentes/PropostaParcelas
 import PropostaServicosAdicionais from '~/componentes/propostacomponentes/PropostaServicosAdicionais'
 import PropostaValorAgregado from '~/componentes/propostacomponentes/PropostaValorAgregado'
 import PropostaOS from '~/componentes/propostacomponentes/PropostaOS'
-
-import { NavigationContainer } from '@react-navigation/native';
+import {Chevron} from 'react-native-shapes';
+//import { NavigationContainer } from '@react-navigation/native';
 import moment from 'moment';
 
 //var ScrollableTabView = require('react-native-scrollable-tab-view');
-import  { ScrollableTabBar } from 'react-native-scrollable-tab-view';
-import Icon from 'react-native-vector-icons/Ionicons';
-var ScrollableTabView = require('react-native-scrollable-tab-view');
+//import  { ScrollableTabBar } from 'react-native-scrollable-tab-view';
+//import Icon from 'react-native-vector-icons/Ionicons';
+//var ScrollableTabView = require('react-native-scrollable-tab-view');
 
 const PropostaDetalhes = props => {
   const TempoRefresh = Global.TEMPO_REFRESH;
@@ -46,7 +47,25 @@ const PropostaDetalhes = props => {
   const [ValoresAgregados, setValoresAgregados] = useState([]);
   const [OSs, setOSs] = useState([]);
   const [TotalAgregado, setTotalAgregado] = useState([]);
-  
+  const [HabilitarCampos, setHabilitarCampos] = useState(true);
+  const [Telas, setTelas] = useState([]);
+  const [TelaSelecionada, setTelaSelecionada] = useState( {value: '', error: ''});
+  //const [Atendimentos, setAtendimentos] = useState([{id: 1, descricao: 'Geral'}, {id: 2, descricao: 'Parcelas'}]);
+  const [GE, setGE] = useState(true);
+  const [PA, setPA] = useState(false);
+  const [SA, setSA] = useState(false);
+  const [CU, setCU] = useState(false);
+  const [AG, setAG] = useState(false);
+  const [OSS, setOSS] = useState(false);
+  /*
+   {label: 'Geral', value: 'GE'},
+            {label: 'Parcelas', value: 'PA'},
+            {label: 'Serviços adicionais', value: 'SA'},
+            {label: 'Custos', value: 'CU'},
+            {label: 'Agregado', value: 'AG'},
+            {label: 'O.S.', value: 'OS'},
+          ]}
+  */
   moment.locale('pt-br');
 
   useEffect(() =>  {
@@ -87,6 +106,8 @@ const PropostaDetalhes = props => {
       ''
       );
   
+      let PropostasAux = []
+
       data.forEach(function(propostas) {
         propostas.Proposta.forEach(function(proposta) {
           PropostasAux = proposta
@@ -206,26 +227,151 @@ const PropostaDetalhes = props => {
 return (  
   <Container
     scroll={true}
-    tela="Proposta Detalhes"
+    tela="Proposta Detalhes."
     loading={loading || refreshing}
     {...props}
     // data={""}
     exibirHeader={true}
     exibirFiltro={false}>
-         
-    <ScrollableTabView
-      style={{ marginTop: 20 }}
-      initialPage={0}
-      renderTabBar={() => <ScrollableTabBar />}>
 
-        <PropostaGeral tabLabel='Geral' PropostaD={PropostaD}/>
+
+
+<RNPickerSelect
+          placeholder={{
+            label: 'Telas...',
+            color: 'black',
+            fontSize: 18,
+          }}
+          style={{
+            inputIOS: {
+              ...pickerSelectStyles.inputIOS,
+              color: 'grey',
+              borderColor: 'grey',
+              borderWidth: 1,
+              backgroundColor: HabilitarCampos
+                ? 'white'
+                : theme.colors.terceary,
+            },
+            inputAndroid: {
+              ...pickerSelectStyles.inputAndroid,
+              color: 'grey',
+              borderColor: 'grey',
+              borderWidth: 1,
+              backgroundColor: HabilitarCampos
+                ? 'white'
+                : theme.colors.terceary,
+            },
+            iconContainer: {...pickerSelectStyles.iconContainer},
+          }}
+          Icon={() => {
+            return <Chevron size={2} color="gray" />;
+          }}
+          useNativeAndroidPickerStyle={false}
+          value={TelaSelecionada.value}
+          onValueChange={item => {
+            setTelaSelecionada({value: item, error: ''});
+            console.log('item selecionado: ', JSON.stringify(item))
+            if (item == 'GE' || item == "undefined"){
+              item = 'GE'
+              setGE(true)
+              setPA(false)
+              setSA(false)
+              setCU(false)
+              setAG(false)
+              setOSS(false)
+
+            }
+
+            if (item == 'PA')
+            {
+              setGE(false)
+              setPA(true)
+              setSA(false)
+              setCU(false)
+              setAG(false)
+              setOSS(false)
+            }
+
+            if (item == 'SA')
+            {
+              setGE(false)
+              setPA(false)
+              setSA(true)
+              setCU(false)
+              setAG(false)
+              setOSS(false)
+            }
+
+            if (item == 'CU')
+            {
+              setGE(false)
+              setPA(false)
+              setSA(false)
+              setCU(true)
+              setAG(false)
+              setOSS(false)
+            }
+
+            if (item == 'AG')
+            {
+              setGE(false)
+              setPA(false)
+              setSA(false)
+              setCU(false)
+              setAG(true)
+              setOSS(false)
+            }
+            
+            if (item == 'OSS')
+            {
+              setGE(false)
+              setPA(false)
+              setSA(false)
+              setCU(false)
+              setAG(false)
+              setOSS(true)
+            }
+            
+          }}
+
+
+          items={[
+            {label: 'Geral', value: 'GE'},
+            {label: 'Parcelas', value: 'PA'},
+            {label: 'Serviços adicionais', value: 'SA'},
+            {label: 'Custos', value: 'CU'},
+            {label: 'Agregado', value: 'AG'},
+            {label: 'O.S.', value: 'OSS'},
+          ]}
+          //items={Telas}
+         // disabled={!HabilitarCampos}
+        />
+
+
+        {GE ?  ( 
+          <PropostaGeral tabLabel='Geral' PropostaD={PropostaD}/>   
+        ) : 
+        (<></>)}
+        {PA ?  ( 
         <PropostaParcelas tabLabel='Parcelas' Parcelas={Parcelas}/>
+        ) : 
+        (<></>)}
+        {SA ?  ( 
         <PropostaServicosAdicionais tabLabel='Serviços adicionais' ServicosAdicionais={ServicosAdicionais}/>
+        ) : 
+        (<></>)}
+        {CU ?  ( 
         <PropostaCustos tabLabel='Custos' Custos={Custos} PropostaD={PropostaD}/>
+        ) : 
+        (<></>)}
+        {AG ?  ( 
         <PropostaValorAgregado tabLabel='Agregado' ValoresAgregados={ValoresAgregados} TotalAgregado={TotalAgregado}/>
+        ) : 
+        (<></>)}
+        {OSS ?  ( 
         <PropostaOS tabLabel='O.S.' OSs={OSs}/>
-    
-    </ScrollableTabView>
+        ) : 
+        (<></>)}
   </Container>
   )
 

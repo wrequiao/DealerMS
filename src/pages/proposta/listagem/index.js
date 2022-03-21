@@ -56,6 +56,16 @@ const PropostaListagem = props => {
     {id: 2, labelView: (<Text style={{ color: 'white', fontSize:12, }}>Dt. Criação</Text>), value: 'Dt. Criação' },
     {id: 3, labelView: (<Text style={{ color: 'white', fontSize:12, }}>Dt. Faturamento</Text>), value: 'Dt. Faturamento' },
   ];
+
+  const [Telas, setTelas] = useState([{id: 1, descricao: 'Geral'}, {id: 2, descricao: 'Parcelas'}]);
+  /*
+  <PropostaGeral tabLabel='Geral' PropostaD={PropostaD}/>
+  <PropostaParcelas tabLabel='Parcelas' Parcelas={Parcelas}/>
+  <PropostaServicosAdicionais tabLabel='Serviços adicionais' ServicosAdicionais={ServicosAdicionais}/>
+  <PropostaCustos tabLabel='Custos' Custos={Custos} PropostaD={PropostaD}/>
+  <PropostaValorAgregado tabLabel='Agregado' ValoresAgregados={ValoresAgregados} TotalAgregado={TotalAgregado}/>
+  <PropostaOS tabLabel='O.S.' OSs={OSs}/>
+*/
   const [radioButtons, setRadioButtons] = useState(radioButtonsData)
   const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false)
@@ -74,6 +84,7 @@ const PropostaListagem = props => {
   const carregarDados = async function() {
     if (loading) return;
     setLoading(true);
+    ajustarFormatoDadosCombo(Telas, 'id', 'descricao');
     await carregarAtendimentos();
     setLoading(false);
 
@@ -364,13 +375,7 @@ console.log('fromdateixxx')
                       {ItemProposta.Estoque_Tipo}
                     </Text>
                   </View>
-
-
-
                 </View>
-
-
-
 
                   </View>   
                 </View>  

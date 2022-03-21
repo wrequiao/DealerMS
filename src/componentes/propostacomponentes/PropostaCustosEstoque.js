@@ -119,7 +119,7 @@ const getCustosVeiculoSimulacaoGet = async function()
                 <View>
                     <View style={{...stylesGeral.ViewCamposCadastro, flexDirection: 'row'}}>
                     <TextInput
-                        label="Valor da Simulação"
+                        label="Valor Simulação"
                         styleContainer={{...stylesGeral.ContainerIpunts, width: '50%'}}
                         styleInput={{height: 45}}
                         returnKeyType="next"
